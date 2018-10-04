@@ -1,0 +1,17 @@
+[
+    {
+        "model-name": "Office",
+        "resource-file": "offices.json",
+        "table-name": "offices"
+    },
+    {
+        "model-name": "Lead",
+        "resource-file": "leads.json",
+        "table-name": "leads"
+    },
+    {
+        "model-name": "Lead_event",
+        "resource-file": "lead_events.json",
+        "table-name": "lead_events"
+    }
+]
