@@ -58,6 +58,11 @@ class Office extends Model
         return $this->hasMany('App\Models\Employee','office_id','id');
     }
 
+    public function leads() {
+
+        return $this->hasManyThrough('App\Models\Lead', 'App\Models\Employee');
+    }
+
 
 
 

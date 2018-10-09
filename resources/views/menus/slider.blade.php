@@ -1,4 +1,4 @@
-<nav id="sidebar">
+<nav id="sidebar" class="active" >
     <div class="sidebar-header">
         <h3></h3>
     </div>
@@ -6,14 +6,14 @@
     <ul class="list-unstyled components">
         <p>List of stats</p>
         <li class="active">
-            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Stats list</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
 
                 <li>
-                    <a href="#">stats 1</a>
+                    <a href="{{route('leads.lead.byoffice')}}">New  Daily leads by Offices</a>
                 </li>
                 <li>
-                    <a href="#">stats 2</a>
+                    <a href="{{route('leads.lead.byofficebtw2dates')}}">New leads by Offices between 2 dates</a>
                 </li>
                 <li>
                     <a href="#">stats 3</a>

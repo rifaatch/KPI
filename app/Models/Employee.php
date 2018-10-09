@@ -74,9 +74,9 @@ class Employee extends Model
     /**
      * Get the lead for this model.
      */
-    public function lead()
+    public function leads()
     {
-        return $this->hasMany('App\Models\Lead','employ_id','id');
+        return $this->hasMany('App\Models\Lead','employee_id','id');
     }
 
 

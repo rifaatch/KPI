@@ -88,30 +88,18 @@ Route::group(
     'prefix' => 'leads',
 ], function () {
 
-    Route::get('/', 'LeadsController@index')
-         ->name('leads.lead.index');
+    Route::get('/byoffice/','LeadsController@leadsByOffice')
+        ->name('leads.lead.byoffice');
 
-    Route::get('/create','LeadsController@create')
-         ->name('leads.lead.create');
+    Route::post('/byoffice-by-date/','LeadsController@leadsByOfficeByDate')
+        ->name('leads.lead.leadsByOfficeByDate');
 
-    Route::get('/show/{lead}','LeadsController@show')
-         ->name('leads.lead.show')
-         ->where('id', '[0-9]+');
 
-    Route::get('/{lead}/edit','LeadsController@edit')
-         ->name('leads.lead.edit')
-         ->where('id', '[0-9]+');
+    Route::get('/byofficebyemployees/{officeid}/{date}','LeadsController@leadsByOfficeByEmployees')
+        ->name('leads.lead.byofficeemployees');
 
-    Route::post('/', 'LeadsController@store')
-         ->name('leads.lead.store');
-               
-    Route::put('lead/{lead}', 'LeadsController@update')
-         ->name('leads.lead.update')
-         ->where('id', '[0-9]+');
-
-    Route::delete('/lead/{lead}','LeadsController@destroy')
-         ->name('leads.lead.destroy')
-         ->where('id', '[0-9]+');
+    Route::get('/byoffice-btw-2dates/','LeadsController@leadsByOfficeBtw2Dates')
+        ->name('leads.lead.byofficebtw2dates');
 
 });
 

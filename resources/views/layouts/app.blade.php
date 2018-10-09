@@ -23,6 +23,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/menu.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+    @yield('header_styles')
 </head>
 <body>
     <div id="app" class="wrapper">
@@ -50,6 +53,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 
 
+    <script type="text/javascript" src="{{ asset('js/jquery-3.3.1.min.js') }}" defer></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             $('#sidebarCollapse').on('click', function () {
@@ -57,6 +62,10 @@
             });
         });
     </script>
+
+    <!-- begin page level js -->
+    @yield('footer_scripts')
+    <!-- end page level js -->
 
 </body>
 </html>
