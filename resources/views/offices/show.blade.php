@@ -27,7 +27,7 @@
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </a>
 
-                    <button type="submit" class="btn btn-danger" title="Delete Office" onclick="return confirm('Delete Office?'>
+                    <button type="submit" class="btn btn-danger" title="Delete Office" onclick="return confirm('Delete Office?')">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
                 </div>
