@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class LeadEvent extends Model
+class KpiIndicator extends Model
 {
     
     /**
@@ -18,7 +18,7 @@ class LeadEvent extends Model
      *
      * @var string
      */
-    protected $table = 'lead_events';
+    protected $table = 'kpi_indicators';
 
     /**
     * The database primary key value.
@@ -33,14 +33,9 @@ class LeadEvent extends Model
      * @var array
      */
     protected $fillable = [
-                  'lead_id',
-                  'zoho_id',
-                  'employ_id',
-                  'old_employee_id',
-                  'action_name',
-                  'action_id',
-                    'description'
-
+                  'employee_id',
+                  'action',
+                  'newlead'
               ];
 
     /**
@@ -58,24 +53,20 @@ class LeadEvent extends Model
     protected $casts = [];
     
     /**
-     * Get the lead for this model.
-     */
-    public function lead()
-    {
-        return $this->belongsTo('App\Models\Lead','lead_id','id');
-    }
-
-
-
-    /**
      * Get the employee for this model.
      */
     public function employee()
     {
-        return $this->belongsTo('App\Models\Employee','owner_id','id');
+        return $this->belongsTo('App\Models\Employee','employee_id','id');
     }
 
 
+    /**
+     * Get created_at in array format
+     *
+     * @param  string  $value
+     * @return array
+     */
 
 
 }

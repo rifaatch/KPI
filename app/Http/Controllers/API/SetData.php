@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: user
- * Date: 14/09/2018
- * Time: 11:14 ص
- */
+
 
 namespace App\Http\Controllers\API;
 
@@ -45,10 +40,23 @@ class SetData extends Controller
                 $responce = $this->renderErrorResponse($messages);
                 return json_encode ($responce);
             }
-            else  {
+            else
+                {
+                    $employee=$this->getEmployee( $data['employId']) ;
+
+                    if (!$employee)
+                    {
+                        $responce = $this->renderResponse("the  employee not exist", 101);
+                        return json_encode($responce);
+                    }
+                    else
+                        {
+
+
                 $lead=Lead::where('zoho_id','=',$data['leadid'])->first();
                 if ( $lead ) {
                     // add a new lead event and change the status of the lead
+                    // todo double check this part
 
                     $leadEvent=LeadEvent::where('action_id' , '=' ,$data['action_id'])->first();
                     if ( !$leadEvent  ) {
@@ -56,9 +64,10 @@ class SetData extends Controller
 
                         'lead_id' => $lead->id,
                         'zoho_id' => $data['leadid'],
-                        'employ_id' => $data['employId'],
-                        'event_name'=>$data['action'],
+                        'employ_id' => $employee->id,
+                        'action_name'=>$data['action'],
                         'action_id'=>$data['action_id'],
+                        'description'=>$data['description']
 
                     ]);
                     }
@@ -96,12 +105,21 @@ class SetData extends Controller
 
 
         }
+        }
 
         catch (Exception $e)
         {
 
 
         }
+    }
+
+
+    protected function  getEmployee ($employeeZohoId)
+    {
+        $employee=Employee::whree('zoho_id', '=',$employeeZohoId)->first();
+        return $employee;
+
     }
 
     protected function validation (array $data)

@@ -20,3 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/setdata','API\SetData@addData') ;
 
 Route::post('/setdata','API\SetData@addData') ;
+
+Route::post('/changeleadownwer','API\ChangeOwner@change') ;
+
+Route::get('/changeleadownwer','API\ChangeOwner@change') ;

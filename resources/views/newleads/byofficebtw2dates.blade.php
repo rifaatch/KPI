@@ -64,8 +64,9 @@
                 <script>
                     $(document).ready(function () {
                         $("#getdata").click(function () {
-                            selecteddate = $("#slecteddate").val();
-                            searchurl = "{{route('leads.lead.leadsByOfficeByDate')}}"
+                            selecteddate1 = $("#slecteddate1").val();
+                            selecteddate2 = $("#slecteddate2").val();
+                            searchurl = "{{route('leads.lead.byofficebtw_2_dates')}}"
                             $.ajax({
                                 type: "POST",
                                 dataType: "html",
@@ -73,7 +74,8 @@
 
                                 data: {
                                     "_token": "{{ csrf_token() }}",
-                                    "selecteddate": selecteddate,
+                                    "selecteddate1": selecteddate1,
+                                    "selecteddate2": selecteddate2,
 
                                 },
                                 success: function (response) {

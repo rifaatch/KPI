@@ -16,7 +16,7 @@ class AddForeignKeysToLeadEventsTable extends Migration {
 		{
 			$table->foreign('lead_id', 'lead_events_ibfk_1')->references('id')->on('leads')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 			$table->foreign('employ_id', 'lead_events_ibfk_2')->references('id')->on('employees')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('owner_id', 'lead_events_ibfk_3')->references('id')->on('employees')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('old_employee_id', 'lead_events_ibfk_3')->references('id')->on('employees')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 

@@ -19,8 +19,9 @@ class CreateLeadEventsTable extends Migration {
             $table->integer('action_id');
 
 			$table->integer('employ_id')->index('employ_id');
-			$table->integer('owner_id')->nullable()->index('owner_id');
-			$table->string('event_name', 50);
+			$table->integer('old_employee_id')->nullable()->index('old_employee_id');
+			$table->string('action_name', 50);
+			$table->text('description')->nullable();
 			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 		});
 	}

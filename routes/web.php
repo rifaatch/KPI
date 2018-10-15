@@ -101,6 +101,20 @@ Route::group(
     Route::get('/byoffice-btw-2dates/','LeadsController@leadsByOfficeBtw2Dates')
         ->name('leads.lead.byofficebtw2dates');
 
+    Route::post('/byofficebtn2date/','LeadsController@showNewleadsByOfficeByw2Dates')
+        ->name('leads.lead.byofficebtw_2_dates');
+
+    Route::get('/byoffice/byemployees/{officeid?}/{date1?}/{date2?}','LeadsController@leadsByOfficeByEmployeesBydates')
+        ->name('leads.lead.byofficeemployeesbydates');
+
+    Route::post('/byemployees/btn2date/','LeadsController@showNewleadsByEmployeesbtwdates')
+        ->name('leads.newlead.byemployees.dates');
+
+    Route::get('/listofleeads/{employeeid}/{date1}/{date2?}','LeadsController@listOfNewLeadsByemp')
+        ->name('leads.newlead.list.byemp');
+
+
+
 });
 
 Route::group(
@@ -131,6 +145,38 @@ Route::group(
 
     Route::delete('/LeadEvent/{leadEvent}','LeadEventsController@destroy')
          ->name('LeadEvents.LeadEvent.destroy')
+         ->where('id', '[0-9]+');
+
+});
+
+Route::group(
+[
+    'prefix' => 'kpi_indicators',
+], function () {
+
+    Route::get('/', 'KpiIndicatorsController@index')
+         ->name('kpi_indicators.kpi_indicator.index');
+
+    Route::get('/create','KpiIndicatorsController@create')
+         ->name('kpi_indicators.kpi_indicator.create');
+
+    Route::get('/show/{kpiIndicator}','KpiIndicatorsController@show')
+         ->name('kpi_indicators.kpi_indicator.show')
+         ->where('id', '[0-9]+');
+
+    Route::get('/{kpiIndicator}/edit','KpiIndicatorsController@edit')
+         ->name('kpi_indicators.kpi_indicator.edit')
+         ->where('id', '[0-9]+');
+
+    Route::post('/', 'KpiIndicatorsController@store')
+         ->name('kpi_indicators.kpi_indicator.store');
+               
+    Route::put('kpi-indicator/{kpiIndicator}', 'KpiIndicatorsController@update')
+         ->name('kpi_indicators.kpi_indicator.update')
+         ->where('id', '[0-9]+');
+
+    Route::delete('/kpi-indicator/{kpiIndicator}','KpiIndicatorsController@destroy')
+         ->name('kpi_indicators.kpi_indicator.destroy')
          ->where('id', '[0-9]+');
 
 });
