@@ -122,30 +122,20 @@ Route::group(
     'prefix' => 'LeadEvents',
 ], function () {
 
-    Route::get('/', 'LeadEventsController@index')
-         ->name('LeadEvents.LeadEvent.index');
+    Route::get('leadevents/{lead_id}', 'LeadEventsController@leadEvents')
+         ->name('LeadEvents.LeadEvent.list');
 
-    Route::get('/create','LeadEventsController@create')
-         ->name('LeadEvents.LeadEvent.create');
+    Route::get('btw2dates/', 'LeadEventsController@leadEventsBtw2dates')
+        ->name('LeadEvents.LeadEvent.list.btwdates.offices');
 
-    Route::get('/show/{leadEvent}','LeadEventsController@show')
-         ->name('LeadEvents.LeadEvent.show')
-         ->where('id', '[0-9]+');
+    Route::post('byoffices/btw2dates/', 'LeadEventsController@leadEventsBtw2datesByOffices')
+        ->name('LeadEvents.list.btwdates.offices');
 
-    Route::get('/{leadEvent}/edit','LeadEventsController@edit')
-         ->name('LeadEvents.LeadEvent.edit')
-         ->where('id', '[0-9]+');
+    Route::get('byemployee/btw2dates/{office_id}/{date1}/{date2?}', 'LeadEventsController@listOfEventsByemp')
+        ->name('LeadEvents.btwdates.employee');
 
-    Route::post('/', 'LeadEventsController@store')
-         ->name('LeadEvents.LeadEvent.store');
-               
-    Route::put('LeadEvent/{leadEvent}', 'LeadEventsController@update')
-         ->name('LeadEvents.LeadEvent.update')
-         ->where('id', '[0-9]+');
 
-    Route::delete('/LeadEvent/{leadEvent}','LeadEventsController@destroy')
-         ->name('LeadEvents.LeadEvent.destroy')
-         ->where('id', '[0-9]+');
+
 
 });
 

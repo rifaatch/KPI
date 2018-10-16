@@ -19,7 +19,7 @@
                             </div>
                         @endif
                         <div class="row" >
-                         <div class="col-12"><h2 class="d-flex justify-content-center">New leads between 2 dates </h2></div>
+                            <div class="col-12"><h2 class="d-flex justify-content-center">List of Events between  2 dates </h2></div>
                         </div>
 
                         <div class="row form-group">
@@ -59,43 +59,43 @@
         </div>
     </div>
 
-            @endsection
+@endsection
 
 
-            @section('footer_scripts')
+@section('footer_scripts')
 
-                <script>
-                    $(document).ready(function () {
-                        $("#getdata").click(function () {
-                            selecteddate1 = $("#slecteddate1").val();
-                            selecteddate2 = $("#slecteddate2").val();
-                            searchurl = "{{route('leads.lead.byofficebtw_2_dates')}}"
-                            $.ajax({
-                                type: "POST",
-                                dataType: "html",
-                                url: searchurl,
+    <script>
+        $(document).ready(function () {
+            $("#getdata").click(function () {
+                selecteddate1 = $("#slecteddate1").val();
+                selecteddate2 = $("#slecteddate2").val();
+                searchurl = "{{route('LeadEvents.list.btwdates.offices')}}"
+                $.ajax({
+                    type: "POST",
+                    dataType: "html",
+                    url: searchurl,
 
-                                data: {
-                                    "_token": "{{ csrf_token() }}",
-                                    "selecteddate1": selecteddate1,
-                                    "selecteddate2": selecteddate2,
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "selecteddate1": selecteddate1,
+                        "selecteddate2": selecteddate2,
 
-                                },
-                                success: function (response) {
-                                    $('#htmdata').html(response);
-
-
-                                },
-                                error: function (response) {
-                                    console.log('Error' + response);
-
-                                }
-                            })
+                    },
+                    success: function (response) {
+                        $('#htmdata').html(response);
 
 
-                        })
-                    });
-                </script>
+                    },
+                    error: function (response) {
+                        console.log('Error' + response);
+
+                    }
+                })
+
+
+            })
+        });
+    </script>
 
 
 

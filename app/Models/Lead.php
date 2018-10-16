@@ -33,7 +33,7 @@ class Lead extends Model
                   'client_name',
                   'description',
                   'action',
-                  'employ_id',
+                  'employee_id',
                   'employ_name'
               ];
 
@@ -58,7 +58,7 @@ class Lead extends Model
      */
     public function employee()
     {
-        return $this->belongsTo('App\Models\Employee','employ_id','id');
+        return $this->belongsTo('App\Models\Employee','employee_id','id');
     }
 
     /**

@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Lead;
 use App\Models\LeadEvent;
+use App\Models\Employee;
+use Carbon\Carbon;
 
 
 
@@ -57,6 +59,8 @@ class SetData extends Controller
                 if ( $lead ) {
                     // add a new lead event and change the status of the lead
                     // todo double check this part
+                    $lead->updated_at=carbon::now()->toDateTimeString();
+                    $lead->save();
 
                     $leadEvent=LeadEvent::where('action_id' , '=' ,$data['action_id'])->first();
                     if ( !$leadEvent  ) {
@@ -64,10 +68,11 @@ class SetData extends Controller
 
                         'lead_id' => $lead->id,
                         'zoho_id' => $data['leadid'],
-                        'employ_id' => $employee->id,
+                        'employee_id' => $employee->id,
                         'action_name'=>$data['action'],
                         'action_id'=>$data['action_id'],
-                        'description'=>$data['description']
+                        'description'=>$data['description'],
+
 
                     ]);
                     }
@@ -85,16 +90,17 @@ class SetData extends Controller
                         'client_name' => $data['clientName'],
                         'description' => $data['description'],
                         'action' => $data['action'],
-                        'employ_id' => $data['employId']
+                        'employee_id' => $data['employId']
                     ]);
 
                     $leadEvent=LeadEvent::create([
 
                         'lead_id' => $lead->id,
                         'zoho_id' => $data['leadid'],
-                        'employ_id' => $data['employId'],
+                        'employee_id' => $data['employId'],
                         'event_name'=>$data['action'],
                         'action_id'=>$data['action_id'],
+                        'updated_at'=>carbon::now()->toDateTimeString()  // todo check the date when we go live .
                     ]);
                 }
 
@@ -117,7 +123,7 @@ class SetData extends Controller
 
     protected function  getEmployee ($employeeZohoId)
     {
-        $employee=Employee::whree('zoho_id', '=',$employeeZohoId)->first();
+        $employee=Employee::where('zoho_id', '=',$employeeZohoId)->first();
         return $employee;
 
     }

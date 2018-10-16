@@ -4,7 +4,7 @@
 @foreach($employees as $employee)
 
 
-    <div class="col-lg-3 col-md-3 col-12  box" >  <a href=""  >  <i class="fas fa-user-tie" style="margin-right: 4px"></i>
+    <div class="col-lg-3 col-md-3 col-12  box" >  <a href="{{route ('leads.newlead.list.byemp',[$employee->id,$date1 , $date2])}}"  >  <i class="fas fa-user-tie" style="margin-right: 4px"></i>
 
         @php ( $leads = $employee->leads()->whereDate('leads.created_at', '>=', $date1) ->whereDate('leads.created_at', '<=', $date2) )
 

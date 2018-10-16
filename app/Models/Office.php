@@ -63,6 +63,13 @@ class Office extends Model
         return $this->hasManyThrough('App\Models\Lead', 'App\Models\Employee');
     }
 
+    public function  events ()
+    {
+
+        return $this->hasManyThrough('App\Models\LeadEvent', 'App\Models\Employee');
+
+    }
+
 
 
 

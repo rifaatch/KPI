@@ -16,7 +16,7 @@
                     <a href="{{route('leads.lead.byofficebtw2dates')}}">New leads by Offices between 2 dates</a>
                 </li>
                 <li>
-                    <a href="#">stats 3</a>
+                    <a href="{{route('LeadEvents.LeadEvent.list.btwdates.offices')}}">Events Between 2 dates</a>
                 </li>
             </ul>
         </li>

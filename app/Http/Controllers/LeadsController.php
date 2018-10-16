@@ -105,15 +105,19 @@ class LeadsController extends Controller
     {
         if ( $date2 == null  ) {
 
-            $leads=Lead::where ( 'employee_id' ,  '=' , $employeeid) ->whereDate('leads.created_at', '=', $date1)->get();
+            $leads=Lead::where ( 'employee_id' ,  '=' , $employeeid) ->whereDate('leads.created_at', '=', $date1)->paginate(25);
             $employee=Employee::where('id', '=',$employeeid)->first();
-            $message="list of new leads by " . $employee->name . "  on date " .$date1;
+            $message="list of new leads by " . $employee->name . "  on: " .$date1;
             return view('newleads.listofleads' , compact('leads' ,'employee') )->with('successMsg',$message);
 
         }
         else {
 
-
+            $leads=Lead::where ( 'employee_id' ,  '=' , $employeeid) ->whereDate('leads.created_at', '>=', $date1)
+                ->whereDate('leads.created_at', '<=', $date2)->paginate(25);
+            $employee=Employee::where('id', '=',$employeeid)->first();
+            $message="List of new leads by " . $employee->name . "  between date: " .$date1 . " and date :" . $date2;
+            return view('newleads.listofleads' , compact('leads' ,'employee') )->with('successMsg',$message);
 
         }
 

@@ -35,7 +35,7 @@ class LeadEvent extends Model
     protected $fillable = [
                   'lead_id',
                   'zoho_id',
-                  'employ_id',
+                  'employee_id',
                   'old_employee_id',
                   'action_name',
                   'action_id',
@@ -72,7 +72,7 @@ class LeadEvent extends Model
      */
     public function employee()
     {
-        return $this->belongsTo('App\Models\Employee','owner_id','id');
+        return $this->belongsTo('App\Models\Employee','employee_id','id');
     }
 
 
