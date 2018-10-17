@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Exception;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class LeadsController extends Controller
 {
@@ -121,11 +122,52 @@ class LeadsController extends Controller
 
         }
 
+    }
+
+    public function search ()
+    {
+       return view('newleads.search') ;
+    }
+
+    public  function  getSearchResult(Request $request)
+
+    {
+        $searchText = $request->input('searchText');
+       $leads=Lead::where('client_name' , 'like' ,'%'.$searchText .'%' )
+                    ->orWhere ('zoho_id' , 'like' ,'%'.$searchText .'%')
+                    ->orWhere('description', 'like' ,'%'.$searchText .'%')
+                    ->paginate(25);
+
+
+        return view('newleads.leads', compact('leads'));
 
 
     }
 
+    public function bySources ()
+    {
+        $currentDate = Carbon::now();
+        $selectedDate = $currentDate->toDateString();
+        return view ('newleads.bysources' , compact('selectedDate'));
 
+    }
+
+
+    public function groupBySources (Request $request)
+    {
+
+        $date1 = $request->input('selecteddate1');
+        $date2 = $request->input('selecteddate2');
+        $countBysources = Lead::whereDate('leads.created_at', '>=', $date1)
+            ->whereDate('leads.created_at', '<=', $date2)
+             ->select ('source' , DB::raw('count(*) as num'))
+             ->groupBy('source')
+            ->get();
+
+        echo ($countBysources);
+
+
+    }
 
 
 

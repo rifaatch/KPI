@@ -12,12 +12,12 @@
 
             @if ( $leads->count() <> 0 )
                 <div style="margin: 4px 0 2px 0 ;  ">
-                    <span class="text-primary" >    {{$leads->count()}} New Leads </span>
+                    <span class="text-primary" >    {{$leads->count()}} New  Leads </span>
                 </div>
 
             @else
                 <div style="margin: 4px 0 2px 0 ;">
-                    <span  class="text-danger" >    Zero New Leads </span>
+                    <span  class="text-danger" >    Zero New  Lead  </span>
                 </div>
             @endif
         </a>

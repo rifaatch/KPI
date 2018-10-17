@@ -1,11 +1,21 @@
 @extends('layouts.app')
 
 @section('header_styles')
+<style>
+    .cell {
+        border-top: solid 1px;
+        border-bottom: solid 1px;
+        border-left: solid 1px;
+        border-right: solid 1px;
+        border-color:#dfdfdf!important;
+    }
 
+
+</style>
 @endsection
 
 @section('content')
-    @php ( $office_id= $selectedOffice->id )
+    @php ( $employee_id= $selectedEmployee->id )
     <div class="container h-100">
 
         <div class="row h-100 justify-content-center">
@@ -20,32 +30,34 @@
                             </div>
                         @endif
                             <div class="row" >
-                                <div class="col-12"><h2 class="d-flex justify-content-center">List of Events between  2 dates  done at office :</h2></div>
+                                <div class="col-12">
+                                    <h2 class="d-flex justify-content-center">
+                                        List of Events between 2 dates done by Employee:
+                                    </h2></div>
                             </div>
                         <div class=" form-group">
-                            <div class=" row form-group ">
-                                <label for="office_id" class="col-md-1 control-label"
-                                       style="padding-left: 0!important; ;padding-right: 0">Office name</label>
-                                <div class="col-md-7">
-                                    <select class="form-control" id="office_id" name="office_id" required="true">
+                           <div class=" row form-group ">
+                                <label for="employee_id" class="col-md-2 control-label"
+                                       style="padding-left: 0!important; ;padding-right: 0"> <span > Employee name :</span></label>
+                                <div class="col-md-6">
+                                    <select class="form-control" id="employee_id" name="employee_id" required="true">
                                         <option value="" style="display: none;"
-                                                {{ $office_id == '' ? 'selected' : '' }} disabled selected>Enter office
-                                            here...
+                                                {{ $employee_id == '' ? 'selected' : '' }} disabled selected>Enter Employee Name here...
                                         </option>
-                                        @foreach ($offices as $key => $office)
-                                            <option value="{{ $key }}" {{ $office_id == $key ? 'selected' : '' }}>
-                                                {{ $office }}
+                                        @foreach ( $employees as $key => $employee )
+                                            <option value="{{ $key }}" {{ $employee_id == $key ? 'selected' : '' }}>
+                                                {{ $employee }}
                                             </option>
                                         @endforeach
                                     </select>
 
-                                    {!! $errors->first('office_id', '<p class="help-block">:message</p>') !!}
+                                    {!! $errors->first('employee_id', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-1 col-sm-12 col-xs-12" style="padding-right: 0!important; ">
 
-                                    <label for="slecteddate" class=" col-form-label"
+                                    <label for="slecteddate1" class=" col-form-label"
                                            style="padding-right: 0!important; ">from
                                         date :</label>
                                 </div>
@@ -56,7 +68,7 @@
 
                                 <div class="col-lg-1 col-sm-12 col-xs-12" style="padding-right: 0!important; ">
 
-                                    <label for="slecteddate" class=" col-form-label"
+                                    <label for="slecteddate2" class=" col-form-label"
                                            style="padding-right: 0!important;">to
                                         date :</label>
                                 </div>
@@ -71,10 +83,10 @@
                                 </div>
                             </div>
                             <div id="htmdata">
-                                @if (  $selectedOffice && $date1<>null && $date2 <> null )
+                                @if (  $selectedEmployee && $date1<>null && $date2 <> null )
 
-                                   @php (  $employees=$selectedOffice->employee  )
-                                    @include ('leadevents.listofeventbyemployeesbydates' ,[$employees , $date1, $date2])
+
+                                    @include ('leadevents.listofevents' ,[ $leadevents ])
 
                                 @endif
                             </div>
@@ -95,8 +107,8 @@
             $("#getdata").click(function () {
                 selecteddate1 = $("#slecteddate1").val();
                 selecteddate2 = $("#slecteddate2").val();
-                officeid = $("#office_id").val();
-                searchurl = "{{route('LeadEvents.list.btwdates.employees')}}"
+                employeeid = $("#employee_id").val();
+                searchurl = "{{route('listEvents.btwdates.employee.details')}}"
                 $.ajax({
                     type: "POST",
                     dataType: "html",
@@ -104,7 +116,7 @@
 
                     data: {
                         "_token": "{{ csrf_token() }}",
-                        "officeid": officeid,
+                        "employeeid": employeeid,
                         "selecteddate1": selecteddate1,
                         "selecteddate2": selecteddate2,
 

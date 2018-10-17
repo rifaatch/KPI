@@ -113,6 +113,19 @@ Route::group(
     Route::get('/listofleeads/{employeeid}/{date1}/{date2?}','LeadsController@listOfNewLeadsByemp')
         ->name('leads.newlead.list.byemp');
 
+    Route::get('/listofleeads/search','LeadsController@search')
+        ->name('leads.search');
+
+    Route::post('/listofleeads/search/getdata','LeadsController@getSearchResult')
+        ->name('leads.search.getdata');
+
+    Route::get('/lead/bysources','LeadsController@bySources')
+        ->name('leads.bysources');
+
+    Route::post('/lead/bysources','LeadsController@groupBySources')
+        ->name('leads.group.bysources');
+
+
 
 
 });
@@ -133,6 +146,15 @@ Route::group(
 
     Route::get('byemployee/btw2dates/{office_id}/{date1}/{date2?}', 'LeadEventsController@listOfEventsByemp')
         ->name('LeadEvents.btwdates.employee');
+
+    Route::post('byoemployee/btwdates/', 'LeadEventsController@leadEventsBtw2datesByEmployee')
+        ->name('LeadEvents.list.btwdates.employees');
+
+    Route::get('eventdetails/btw2dates/{employee_id}/{date1}/{date2?}', 'LeadEventsController@eventsDetailsByemployeeByDates')
+        ->name('LeadEvents.btwdates.employee.details');
+
+    Route::post('listevent/btwdates/', 'LeadEventsController@ListeventsByemployeeByDates')
+        ->name('listEvents.btwdates.employee.details');
 
 
 

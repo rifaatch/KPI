@@ -16,7 +16,15 @@
                     <a href="{{route('leads.lead.byofficebtw2dates')}}">New leads by Offices between 2 dates</a>
                 </li>
                 <li>
+                    <a href="{{route('leads.bysources')}}">New leads by Sources between 2 dates</a>
+                </li>
+
+                <li>
                     <a href="{{route('LeadEvents.LeadEvent.list.btwdates.offices')}}">Events Between 2 dates</a>
+                </li>
+
+                <li>
+                    <a href="{{route('leads.search')}}"><i class="fas fa-search"></i> Search</a>
                 </li>
             </ul>
         </li>

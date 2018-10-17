@@ -34,7 +34,7 @@ class SetData extends Controller
             $data['description']=Input::get('description'); //optional
             $data['action'] = Input::get ('action');
             $data['action_id'] = Input::get ('action_id');
-
+            $data['source'] = Input::get ('source');
             $validator = $this->validation ($data);
             if ( $validator->fails () ) {
 
@@ -74,6 +74,7 @@ class SetData extends Controller
                         'description'=>$data['description'],
 
 
+
                     ]);
                     }
                     else {
@@ -90,7 +91,8 @@ class SetData extends Controller
                         'client_name' => $data['clientName'],
                         'description' => $data['description'],
                         'action' => $data['action'],
-                        'employee_id' => $data['employId']
+                        'employee_id' => $data['employId'],
+                        'source'=> $data['source']
                     ]);
 
                     $leadEvent=LeadEvent::create([
@@ -139,6 +141,7 @@ class SetData extends Controller
                 'status' => 'required|in:active,nactive,closed,converted,cancelled,creation',
                 'description' => 'nullable|string',
                 'action' => 'required|string',
+                'source' => 'nullable|string',
                 'action_id' => 'required|numeric'
 
             ], $this->messagevalidation ()
@@ -198,7 +201,7 @@ class SetData extends Controller
         $response['message'] = $message;
 
         return $response;
-        // a sample    {"status":"1","message":"SuccessfullyRegister ","usertoken":"546a456dfasdf6544"}
+
     }
 
 }

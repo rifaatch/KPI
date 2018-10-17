@@ -68,7 +68,7 @@ class Employee extends Model
      */
     public function leadEvent()
     {
-        return $this-> hasMany('App\Models\LeadEvent','owner_id','id');
+        return $this-> hasMany('App\Models\LeadEvent','employee_id','id');
     }
 
     /**

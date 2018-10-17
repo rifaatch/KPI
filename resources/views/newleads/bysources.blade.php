@@ -5,13 +5,15 @@
 @endsection
 
 @section('content')
-    @php ( $office_id= $selectedOffice->id )
+
     <div class="container h-100">
 
         <div class="row h-100 justify-content-center">
             <div class="col-md-12">
                 <div class="card" style="border:none">
-
+                    <div class="row" >
+                        <div class="col-12"><h2 class="d-flex justify-content-center">New leads by Sources between 2 dates </h2></div>
+                    </div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -19,49 +21,27 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                            <div class="row" >
-                                <div class="col-12"><h2 class="d-flex justify-content-center">List of Events between  2 dates  done at office :</h2></div>
-                            </div>
+
                         <div class=" form-group">
-                            <div class=" row form-group ">
-                                <label for="office_id" class="col-md-1 control-label"
-                                       style="padding-left: 0!important; ;padding-right: 0">Office name</label>
-                                <div class="col-md-7">
-                                    <select class="form-control" id="office_id" name="office_id" required="true">
-                                        <option value="" style="display: none;"
-                                                {{ $office_id == '' ? 'selected' : '' }} disabled selected>Enter office
-                                            here...
-                                        </option>
-                                        @foreach ($offices as $key => $office)
-                                            <option value="{{ $key }}" {{ $office_id == $key ? 'selected' : '' }}>
-                                                {{ $office }}
-                                            </option>
-                                        @endforeach
-                                    </select>
 
-                                    {!! $errors->first('office_id', '<p class="help-block">:message</p>') !!}
-                                </div>
-                            </div>
-                            <div class="row">
+                            <div class="row" >
                                 <div class="col-lg-1 col-sm-12 col-xs-12" style="padding-right: 0!important; ">
 
-                                    <label for="slecteddate" class=" col-form-label"
-                                           style="padding-right: 0!important; ">from
+                                    <label for="slecteddate" class=" col-form-label" style="padding-right: 0!important; ">from
                                         date :</label>
                                 </div>
                                 <div class="col-lg-3 col-sm-12 col-xs-12" style="padding-left: 0!important;">
-                                    <input type="date" class="form-control" id="slecteddate1" value="{{$date1}}">
+                                    <input type="date" class="form-control" id="slecteddate1" value="{{$selectedDate}}">
 
                                 </div>
 
                                 <div class="col-lg-1 col-sm-12 col-xs-12" style="padding-right: 0!important; ">
 
-                                    <label for="slecteddate" class=" col-form-label"
-                                           style="padding-right: 0!important;">to
+                                    <label for="slecteddate" class=" col-form-label" style="padding-right: 0!important;">to
                                         date :</label>
                                 </div>
                                 <div class="col-lg-3 col-sm-12 col-xs-12" style="padding-left: 0!important;">
-                                    <input type="date" class="form-control" id="slecteddate2" value="{{$date2}}">
+                                    <input type="date" class="form-control" id="slecteddate2" value="{{$selectedDate}}">
 
                                 </div>
                                 <div class="col-lg-1 col-sm-12 col-xs-12">
@@ -71,12 +51,7 @@
                                 </div>
                             </div>
                             <div id="htmdata">
-                                @if (  $selectedOffice && $date1<>null && $date2 <> null )
 
-                                   @php (  $employees=$selectedOffice->employee  )
-                                    @include ('leadevents.listofeventbyemployeesbydates' ,[$employees , $date1, $date2])
-
-                                @endif
                             </div>
                         </div>
                     </div>
@@ -95,8 +70,8 @@
             $("#getdata").click(function () {
                 selecteddate1 = $("#slecteddate1").val();
                 selecteddate2 = $("#slecteddate2").val();
-                officeid = $("#office_id").val();
-                searchurl = "{{route('LeadEvents.list.btwdates.employees')}}"
+
+                searchurl = "{{route('leads.group.bysources')}}"
                 $.ajax({
                     type: "POST",
                     dataType: "html",
@@ -104,7 +79,6 @@
 
                     data: {
                         "_token": "{{ csrf_token() }}",
-                        "officeid": officeid,
                         "selecteddate1": selecteddate1,
                         "selecteddate2": selecteddate2,
 
