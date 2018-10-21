@@ -18,5 +18,10 @@
         "model-name": "Kpi_indicator",
         "resource-file": "kpi_indicators.json",
         "table-name": "kpi_indicators"
+    },
+    {
+        "model-name": "Holiday",
+        "resource-file": "holidays.json",
+        "table-name": "holidays"
     }
 ]

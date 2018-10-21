@@ -23,6 +23,16 @@
                     <a href="{{route('LeadEvents.LeadEvent.list.btwdates.offices')}}">Events Between 2 dates</a>
                 </li>
 
+
+                <li>
+                    <a href="{{route('kpi_indicators.leads.btw2dates')}}">Leads KPI indicator Between 2 dates</a>
+                </li>
+
+                <li>
+                    <a href="{{route('leads.pending')}}">Pending leads</a>
+                </li>
+
+
                 <li>
                     <a href="{{route('leads.search')}}"><i class="fas fa-search"></i> Search</a>
                 </li>
@@ -43,6 +53,11 @@
                 <li>
                     <a href="{{route('kpi_indicators.kpi_indicator.index')}}">KPI Indicator</a>
                 </li>
+
+                <li>
+                    <a href="{{route('holidays.holiday.index')}}">Hollydays</a>
+                </li>
+
             </ul>
         </li>
 

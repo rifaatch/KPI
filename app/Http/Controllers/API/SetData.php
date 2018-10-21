@@ -60,7 +60,9 @@ class SetData extends Controller
                     // add a new lead event and change the status of the lead
                     // todo double check this part
                     $lead->updated_at=carbon::now()->toDateTimeString();
+                    $lead->status=$data['status'];
                     $lead->save();
+
 
                     $leadEvent=LeadEvent::where('action_id' , '=' ,$data['action_id'])->first();
                     if ( !$leadEvent  ) {
@@ -76,6 +78,7 @@ class SetData extends Controller
 
 
                     ]);
+
                     }
                     else {
                         $responce = $this->renderResponse ( "this lead event is already exist" ,101);

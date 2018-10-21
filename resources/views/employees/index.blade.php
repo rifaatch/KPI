@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-
+    <div class="container h-100">
     @if(Session::has('success_message'))
-        <div class="alert alert-success">
+        <div class=" row" >
+        <div class=" col-md-12 alert alert-success">
             <span class="glyphicon glyphicon-ok"></span>
             {!! session('success_message') !!}
 
@@ -12,9 +13,10 @@
             </button>
 
         </div>
+        </div>
     @endif
 
-    <div class="container h-100">
+
 
         <div class="row h-100 ">
 

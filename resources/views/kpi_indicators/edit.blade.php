@@ -41,7 +41,7 @@
                                       ])
 
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
+                    <div class="offset-md-1 col-md-10">
                         <input class="btn btn-primary" type="submit" value="Update">
                     </div>
                 </div>

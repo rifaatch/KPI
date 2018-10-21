@@ -25,6 +25,8 @@
     <link href="{{ asset('css/menu.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
+    <link rel="icon" type="image/png" href="{{{ asset('images/favicon.ico') }}}" />
+
     @yield('header_styles')
 </head>
 <body>

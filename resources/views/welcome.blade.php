@@ -20,6 +20,8 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/menu.css') }}" rel="stylesheet">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+        <link rel="icon" type="image/png" href="{{{ asset('images/favicon.png') }}}" />
     </head>
     <body>
     <div class="wrapper">

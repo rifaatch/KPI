@@ -160,13 +160,42 @@ class LeadsController extends Controller
         $date2 = $request->input('selecteddate2');
         $countBysources = Lead::whereDate('leads.created_at', '>=', $date1)
             ->whereDate('leads.created_at', '<=', $date2)
-             ->select ('source' , DB::raw('count(*) as num'))
+             ->select ('source' , DB::raw('count(*) as countsofleads'))
              ->groupBy('source')
             ->get();
 
-        echo ($countBysources);
+        return view('newleads.listbysource' ,compact('countBysources' , 'date1' , 'date2'));
 
+    }
 
+    public function listOfNewLeadsBySource(   $date1 , $date2,$source =null )
+    {
+        $employee=null ;
+        if ( $source == null  ) {
+
+            $leads=Lead::whereNull ('source')->paginate(25);
+                 $message="list of new leads obtained by undefined  advertising between date :".$date1 . " and date:".$date2 ;
+            return view('newleads.listofleads' , compact('leads' ,'employee') )->with('successMsg',$message);
+
+        }
+        else {
+
+            $leads=Lead::where ( 'source' ,  '=' , $source) ->paginate(25);
+            $message="list of new leads obtained by " . $source . "  advertising between date :".$date1 . " and date:".$date2 ;
+            return view('newleads.listofleads' , compact('leads' ,'employee') )->with('successMsg',$message);
+
+        }
+
+    }
+
+    public  function  pendingLeads ()
+    {
+        $leads =Lead::where('status','<>','converted')->where('status', '<>' , 'cancelled')->where('status','<>' ,'closed')
+            ->orWhereNull ('status')->orderBy('updated_at', 'ASC')->paginate(25);
+        $message="list of pending leads  " ;
+        $employee=null ;
+
+        return view('newleads.listofleads' , compact('leads' ,'employee') )->with('successMsg',$message);
     }
 
 

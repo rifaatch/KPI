@@ -4,18 +4,21 @@
 
     <div class="container h-100">
 
-        <div class="row h-100 ">
-            <div class="col-md-4 col-sm-12 col-xs-12">
+        <div class="row h-100 " style="margin-bottom: 3px">
+
+            <div class="col-md-7 col-sm-12 col-xs-12" >
+
             <span class="float-left">
-                <h4 >Create New Kpi Indicator</h4>
+                <h4 class="">Create New Holiday</h4>
             </span>
-            </div>
-            <div class="col-md-2 col-sm-12 col-xs-12">
-                <a href="{{ route('kpi_indicators.kpi_indicator.index') }}" class="btn btn-primary float-md-right" style="margin-bottom: 2px" title="Show All users Kpi Indicator">
+
+                <div class="btn-group btn-group-sm float-md-right" role="group">
+                <a href="{{ route('holidays.holiday.index') }}" class="btn btn-primary" title="Show All Holiday" >
                     <i class="fas fa-long-arrow-alt-down"></i>Show all
                 </a>
             </div>
 
+        </div>
         </div>
 
         <div class="panel-body">
@@ -28,10 +31,10 @@
                 </ul>
             @endif
 
-            <form method="POST" action="{{ route('kpi_indicators.kpi_indicator.store') }}" accept-charset="UTF-8" id="create_kpi_indicator_form" name="create_kpi_indicator_form" class="form-horizontal">
+            <form method="POST" action="{{ route('holidays.holiday.store') }}" accept-charset="UTF-8" id="create_holiday_form" name="create_holiday_form" class="form-horizontal">
             {{ csrf_field() }}
-            @include ('kpi_indicators.form', [
-                                        'kpiIndicator' => null,
+            @include ('holidays.form', [
+                                        'holiday' => null,
                                       ])
 
                 <div class="form-group">
@@ -44,6 +47,7 @@
 
         </div>
     </div>
+
 
 @endsection
 

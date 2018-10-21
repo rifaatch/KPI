@@ -27,6 +27,10 @@
 
             </div>
             <div class="col-lg d-none d-lg-block cell" >
+                <span class="">Updated at</span>
+
+            </div>
+            <div class="col-lg d-none d-lg-block cell" >
                 <span class="">Event list</span>
 
             </div>
@@ -56,6 +60,10 @@
                 <div class="col-sm col-lg-4 cell " >
                     <span class="d-md-none -d-lg-none -d-xl-none">Description :</span>
                     {{$lead->description}}
+                </div>
+                <div class="col-sm  cell" >
+                    <span class="d-md-none -d-lg-none -d-xl-none">Action :</span>
+                    {{$lead->updated_at}}
                 </div>
                 <div class="col-sm  cell" >
                     <a href="{{route('LeadEvents.LeadEvent.list' , $lead->id)}}" class="btn btn-info"> Event list</a>

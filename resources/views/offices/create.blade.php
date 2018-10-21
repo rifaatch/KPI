@@ -16,12 +16,13 @@
                 <div class="col-md-2 col-sm-12 col-xs-12">
                     <div class="btn-group btn-group-sm float-md-right" role="group">
 
-                <a href="{{ route('offices.office.index') }}" class="btn btn-primary" title="Show All Office">
+                <a href="{{ route('offices.office.index') }}" class="btn btn-primary " title="Show All Office" style="margin-bottom: 2px" >
                     <i class="fas fa-long-arrow-alt-down"></i>Show all
                 </a>
             </div>
                 </div>
         </div>
+
 
         <div class="panel-body">
         
@@ -39,8 +40,8 @@
                                         'office' => null,
                                       ])
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
+                <div class="row form-group">
+                    <div class="offset-md-2 col-md-10">
                         <input class="btn btn-primary" type="submit" value="Add">
                     </div>
                 </div>
@@ -49,6 +50,7 @@
 
         </div>
     </div>
+
 
 @endsection
 

@@ -11,7 +11,7 @@
             </div>
             <div class="col-md-6 col-sm-12 col-xs-12" role="group" style="margin-bottom: 2px">
 
-                <a href="{{ route('offices.office.index') }}" class="btn btn-primary" title="Show All Office">
+                <a href="{{ route('offices.office.index') }}" class="btn btn-primary " title="Show All Office">
                     <i class="fas fa-long-arrow-alt-down"></i>Show all
                 </a>
 
@@ -41,7 +41,7 @@
 
                 <div class="row form-group">
                     <div class="offset-md-2 col-md-6">
-                        <input class="btn btn-primary float-right" type="submit" value="Update">
+                        <input class="btn btn-primary " type="submit" value="Update">
                     </div>
                 </div>
 

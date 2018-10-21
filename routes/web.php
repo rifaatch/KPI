@@ -125,6 +125,12 @@ Route::group(
     Route::post('/lead/bysources','LeadsController@groupBySources')
         ->name('leads.group.bysources');
 
+    Route::get('/leads/details/bysources/{date1}/{date2}/{source?}','LeadsController@listOfNewLeadsBySource')
+        ->name('leads.details.bysources');
+
+    Route::get('/pendingleads','LeadsController@pendingLeads')
+        ->name('leads.pending');
+
 
 
 
@@ -189,6 +195,45 @@ Route::group(
 
     Route::delete('/kpi-indicator/{kpiIndicator}','KpiIndicatorsController@destroy')
          ->name('kpi_indicators.kpi_indicator.destroy')
+         ->where('id', '[0-9]+');
+
+    Route::get('/btw2dates/leads','KpiIndicatorsController@LeadsBtwDates')
+        ->name('kpi_indicators.leads.btw2dates');
+
+    Route::post('/btw2dates/leads/result','KpiIndicatorsController@resultLeadsBtwDates')
+        ->name('kpi_indicators.leads.btw2dates.result');
+
+
+});
+
+Route::group(
+[
+    'prefix' => 'holidays',
+], function () {
+
+    Route::get('/', 'HolidaysController@index')
+         ->name('holidays.holiday.index');
+
+    Route::get('/create','HolidaysController@create')
+         ->name('holidays.holiday.create');
+
+    Route::get('/show/{holiday}','HolidaysController@show')
+         ->name('holidays.holiday.show')
+         ->where('id', '[0-9]+');
+
+    Route::get('/{holiday}/edit','HolidaysController@edit')
+         ->name('holidays.holiday.edit')
+         ->where('id', '[0-9]+');
+
+    Route::post('/', 'HolidaysController@store')
+         ->name('holidays.holiday.store');
+               
+    Route::put('holiday/{holiday}', 'HolidaysController@update')
+         ->name('holidays.holiday.update')
+         ->where('id', '[0-9]+');
+
+    Route::delete('/holiday/{holiday}','HolidaysController@destroy')
+         ->name('holidays.holiday.destroy')
          ->where('id', '[0-9]+');
 
 });

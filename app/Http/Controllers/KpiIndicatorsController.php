@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Holiday;
+use App\Models\Office;
 use Illuminate\Http\Request;
 use App\Models\KpiIndicator;
 use App\Http\Controllers\Controller;
 use Exception;
+use Carbon\Carbon;
+use App\Http\Helpers\DateCalculation;
 
 class KpiIndicatorsController extends Controller
 {
@@ -156,6 +160,24 @@ class KpiIndicatorsController extends Controller
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request!']);
         }
     }
+
+    public function LeadsBtwDates ()
+    {
+        $currentDate = Carbon::now();
+        $selectedDate = $currentDate->toDateString();
+
+        return view ('newleads.kpiindicator' , compact('selectedDate'));
+    }
+
+
+    public function resultLeadsBtwDates (Request $request   )
+    {
+        $wordingdays=New DateCalculation ;
+        $offices=Office::all();
+        $hollidays=Holiday::where('office_id','=',1)->first();
+         return view ('newleads.kpiindicatorresult' , compact('selectedDate'));
+    }
+
 
 
     /**
