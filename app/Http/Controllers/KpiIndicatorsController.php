@@ -183,7 +183,7 @@ class KpiIndicatorsController extends Controller
     /**
      * Get the request's data from the request.
      *
-     * @param Illuminate\Http\Request\Request $request
+     * @param Illuminate\Http\sxRequest\Request $request
      * @return array
      */
     protected function getData(Request $request)
