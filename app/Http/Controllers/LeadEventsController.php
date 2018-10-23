@@ -101,19 +101,26 @@ class LeadEventsController extends Controller
     }
 
 
-        public function ListeventsByemployeeByDates(Request $request)
-        {
-            $date1 = $request->input('selecteddate1');
-            $date2 = $request->input('selecteddate2');
-            $employee_id = $request->input('employeeid');
+    public function ListeventsByemployeeByDates(Request $request)
+    {
+        $date1 = $request->input('selecteddate1');
+        $date2 = $request->input('selecteddate2');
+        $employee_id = $request->input('employeeid');
+        $filterby = $request->input('filterby');
+
+        if (strlen($filterby) == 0) {
 
             $leadevents = LeadEvent::where('employee_id', '=', $employee_id)->whereDate('lead_events.created_at', '>=', $date1)
                 ->whereDate('lead_events.created_at', '<=', $date2)->paginate(25);
-
-            return view('leadevents.listofevents', compact('leadevents'));
-
+        } else {
+            $leadevents = LeadEvent::where('employee_id', '=', $employee_id)->whereDate('lead_events.created_at', '>=', $date1)
+                ->whereDate('lead_events.created_at', '<=', $date2)->where('action_name', 'like', '%' . $filterby . '%')->paginate(25);
 
         }
+        return view('leadevents.listofevents', compact('leadevents'));
+
+
+    }
 
 
 }

@@ -203,6 +203,12 @@ Route::group(
     Route::post('/btw2dates/leads/result','KpiIndicatorsController@resultLeadsBtwDates')
         ->name('kpi_indicators.leads.btw2dates.result');
 
+    Route::get('/btw2dates/byemployees/{officeid}/{date1}/{date2}','KpiIndicatorsController@byEmployeesBydates')
+        ->name('kpi_indicators.byemployees.btw2dates');
+
+    Route::post('/btw2dates/result/byemployees/','KpiIndicatorsController@resultbyEmployeesBydates')
+        ->name('kpi_indicators.byemployees.result');
+
 
 });
 

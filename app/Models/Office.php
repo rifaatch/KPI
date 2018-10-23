@@ -70,6 +70,13 @@ class Office extends Model
 
     }
 
+    public function kpiIndicators ()
+    {
+
+        return $this->hasManyThrough('App\Models\KpiIndicator', 'App\Models\Employee');
+
+    }
+
 
 
 

@@ -1,11 +1,14 @@
 <?php
 
 namespace App\Http\Helpers;
+use DateTime;
+use DatePeriod;
+use DateInterval;
 
 class DateCalculation
 {
 
-    public function workingKays($date1, $date2, $holidays)
+    public function workingKays($date1, $date2)
     {
         $difdays = 0;
 
@@ -22,7 +25,6 @@ class DateCalculation
         $end = new DateTime($date2);
         // otherwise the  end date is excluded (bug?)
         $end->modify('+1 day');
-
         $interval = $end->diff($start);
 
         // total days
@@ -41,13 +43,13 @@ class DateCalculation
             if ($curr == 'Sat' || $curr == 'Sun') {
                 $days--;
             } // (optional) for the updated question
-            elseif (in_array($dt->format('Y-m-d'), $holidays)) {
+           /* elseif (in_array($dt->format('Y-m-d'), $holidays)) {
+                echo 'holidays----';
                 $days--;
-            }
+            }*/
         }
 
-
-        echo $days ;
+      //  echo $days ;
 
         return $days;
     }

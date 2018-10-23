@@ -34,7 +34,7 @@
 
 
                 <li>
-                    <a href="{{route('leads.search')}}"><i class="fas fa-search"></i> Search</a>
+                    <a href="{{route('leads.search')}}"><i class="fas fa-search"></i> Lead Search</a>
                 </li>
             </ul>
         </li>

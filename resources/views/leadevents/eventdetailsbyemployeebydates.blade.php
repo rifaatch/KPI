@@ -38,8 +38,8 @@
                         <div class=" form-group">
                            <div class=" row form-group ">
                                 <label for="employee_id" class="col-md-2 control-label"
-                                       style="padding-left: 0!important; ;padding-right: 0"> <span > Employee name :</span></label>
-                                <div class="col-md-6">
+                                       style="padding-left: 0!important; ;padding-right: 0"> <span  class="float-right"> Employee name :</span></label>
+                                <div class="col-md-4">
                                     <select class="form-control" id="employee_id" name="employee_id" required="true">
                                         <option value="" style="display: none;"
                                                 {{ $employee_id == '' ? 'selected' : '' }} disabled selected>Enter Employee Name here...
@@ -53,6 +53,11 @@
 
                                     {!! $errors->first('employee_id', '<p class="help-block">:message</p>') !!}
                                 </div>
+
+                            <div class="col-lg-3 col-sm-12 col-xs-12" style="padding-left: 0!important;">
+                                <input type="text" class="form-control" id="filterby" placeholder="Filter by action name ...">
+
+                            </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-1 col-sm-12 col-xs-12" style="padding-right: 0!important; ">
@@ -108,6 +113,7 @@
                 selecteddate1 = $("#slecteddate1").val();
                 selecteddate2 = $("#slecteddate2").val();
                 employeeid = $("#employee_id").val();
+                filterby=$("#filterby").val();
                 searchurl = "{{route('listEvents.btwdates.employee.details')}}"
                 $.ajax({
                     type: "POST",
@@ -119,6 +125,7 @@
                         "employeeid": employeeid,
                         "selecteddate1": selecteddate1,
                         "selecteddate2": selecteddate2,
+                        "filterby":filterby,
 
                     },
                     success: function (response) {

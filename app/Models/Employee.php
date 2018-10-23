@@ -79,6 +79,12 @@ class Employee extends Model
         return $this->hasMany('App\Models\Lead','employee_id','id');
     }
 
+    public function kpiIndicator ()
+    {
+        return $this->hasOne('App\Models\KpiIndicator');
+
+    }
+
 
 
 

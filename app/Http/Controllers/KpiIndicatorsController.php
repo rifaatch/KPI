@@ -172,12 +172,65 @@ class KpiIndicatorsController extends Controller
 
     public function resultLeadsBtwDates (Request $request   )
     {
-        $wordingdays=New DateCalculation ;
+        $date1 = $request->input('selecteddate1');
+        $date2 = $request->input('selecteddate2');
+        $dateCalculation=New DateCalculation ;
+
         $offices=Office::all();
-        $hollidays=Holiday::where('office_id','=',1)->first();
-         return view ('newleads.kpiindicatorresult' , compact('selectedDate'));
+        foreach ( $offices as $office )
+        {
+            $workingdays=$dateCalculation->workingKays($date1 ,$date2 );
+            $countofhollidays=Holiday::where('office_id','=',$office->id)->whereDate('date', '>=', $date1)->whereDate('date', '<=', $date2)->get()->count();
+            $newleads=$office->leads()->whereDate('leads.created_at', '>=', $date1)->whereDate('leads.created_at', '<=', $date2)->count();
+            $events=$office->events()->whereDate('Lead_events.created_at', '>=', $date1)->whereDate('Lead_events.created_at', '<=', $date2)->count();
+            $workingdays=$workingdays-$countofhollidays;
+            $office['workingdays']=  $workingdays ;
+            $office['newleads']=  $newleads ;
+            $office['events']=  $events ;
+
     }
 
+                  //dd($offices);
+
+         return view ('newleads.kpiindicatorresult' , compact('offices' , 'date1' , 'date2'));
+    }
+
+    public function  byEmployeesBydates ($officeid , $date1 , $date2)
+       {
+           $offices = Office::pluck('office_name', 'id')->all();
+           $selectedoffice=Office::where('id', '=',$officeid)->first();
+           $dateCalculation=New DateCalculation ;
+           $workingdays=$dateCalculation->workingKays($date1 ,$date2 );
+           $countofhollidays=Holiday::where('office_id','=',$selectedoffice->id)->whereDate('date', '>=', $date1)
+               ->whereDate('date', '<=', $date2)->get()->count();
+           $workingdays=$workingdays-$countofhollidays;
+
+
+          return view ('newleads.kpiindicatorbyemployees', compact('offices' , 'selectedoffice' , 'date1' , 'date2' ,'workingdays'));
+
+
+
+    }
+
+
+    public function  resultbyEmployeesBydates (Request $request)
+
+    {
+        $date1 = $request->input('selecteddate1');
+        $date2 = $request->input('selecteddate2');
+        $officeid=$request->input('officeid');
+              $selectedoffice=Office::where('id', '=',$officeid)->first();
+        $dateCalculation=New DateCalculation ;
+        $workingdays=$dateCalculation->workingKays($date1 ,$date2 );
+        $countofhollidays=Holiday::where('office_id','=',$selectedoffice->id)->whereDate('date', '>=', $date1)
+            ->whereDate('date', '<=', $date2)->get()->count();
+        $workingdays=$workingdays-$countofhollidays;
+
+       return view ('newleads.kpiindicatorresultbyemployee', compact( 'selectedoffice' , 'date1' , 'date2' ,'workingdays'));
+
+
+
+    }
 
 
     /**

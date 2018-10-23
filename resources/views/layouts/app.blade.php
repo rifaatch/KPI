@@ -26,8 +26,10 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
     <link rel="icon" type="image/png" href="{{{ asset('images/favicon.ico') }}}" />
-
+    <!-- Styles -->
     @yield('header_styles')
+<!-- Styles -->
+
 </head>
 <body>
     <div id="app" class="wrapper">
