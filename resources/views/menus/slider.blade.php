@@ -4,7 +4,8 @@
     </div>
 
     <ul class="list-unstyled components">
-        <p>List of stats</p>
+        <p> <a href="{{route('home')}}"> <i class="fas fa-home"></i> home</a></p>
+
         <li class="active">
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Stats list</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
