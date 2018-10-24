@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
 use App\Models\Employee;
 use App\Models\Holiday;
 use App\Models\Office;
@@ -188,9 +189,30 @@ class KpiIndicatorsController extends Controller
             $office['newleads']=  $newleads ;
             $office['events']=  $events ;
 
+            // Application
+            $newapplications=$office->applications()->whereDate('applications.created_at', '>=', $date1)->whereDate('applications.created_at', '<=', $date2)->count();
+            $office['newapplications']=  $newapplications ;
+
+            //Application events
+
+            $applicationEvents=$office->applicationEvents()->whereDate('application_events.created_at', '>=', $date1)->whereDate('application_events.created_at', '<=', $date2)->count();
+            $office['applicationEvents']=  $applicationEvents ;
+
+            // Contacts new
+
+            $newcontacts=$office->contacts()->whereDate('contacts.created_at', '>=', $date1)->whereDate('contacts.created_at', '<=', $date2)->count();
+            $office['newcontacts']=  $newcontacts ;
+
+            // Contact events
+
+            $contactEvents=$office->contactsEvents()->whereDate('contact_events.created_at', '>=', $date1)->whereDate('contact_events.created_at', '<=', $date2)->count();
+            $office['contactEvents']=  $contactEvents ;
+
+
+
     }
 
-                  //dd($offices);
+
 
          return view ('newleads.kpiindicatorresult' , compact('offices' , 'date1' , 'date2'));
     }
@@ -245,6 +267,13 @@ class KpiIndicatorsController extends Controller
             'employee_id' => 'required',
             'action' => 'required|numeric|min:-2147483648|max:2147483647',
             'newlead' => 'required|numeric|min:-2147483648|max:2147483647',
+
+            'new_applications' => 'required|numeric|min:-2147483648|max:2147483647',
+            'application_events' => 'required|numeric|min:-2147483648|max:2147483647',
+
+            'new_contacts' => 'required|numeric|min:-2147483648|max:2147483647',
+            'contact_events' => 'required|numeric|min:-2147483648|max:2147483647',
+
 
         ];
 

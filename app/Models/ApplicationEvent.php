@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class KpiIndicator extends Model
+class ApplicationEvent extends Model
 {
     
     /**
@@ -18,7 +18,7 @@ class KpiIndicator extends Model
      *
      * @var string
      */
-    protected $table = 'kpi_indicators';
+    protected $table = 'application_events';
 
     /**
     * The database primary key value.
@@ -33,15 +33,13 @@ class KpiIndicator extends Model
      * @var array
      */
     protected $fillable = [
+                  'zoho_id',
+                  'action_id',
+                  'application_id',
                   'employee_id',
-                  'action',
-                  'newlead',
-                   'new_applications',
-                   'application_events',
-                   'new_contacts',
-                   'contact_events'
-
-
+                  'old_employee_id',
+                  'action_name',
+                  'description'
               ];
 
     /**
@@ -58,21 +56,26 @@ class KpiIndicator extends Model
      */
     protected $casts = [];
     
+
+
+
+
+    /**
+     * Get the application for this model.
+     */
+    public function application()
+    {
+        return $this->belongsTo('App\Models\Application','aplication_id','id');
+    }
+
     /**
      * Get the employee for this model.
      */
     public function employee()
     {
-        return $this->belongsTo('App\Models\Employee','employee_id','id');
+        return $this->belongsTo('App\Models\Employee','employ_id','id');
     }
 
-
-    /**
-     * Get created_at in array format
-     *
-     * @param  string  $value
-     * @return array
-     */
 
 
 }

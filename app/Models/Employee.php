@@ -79,6 +79,26 @@ class Employee extends Model
         return $this->hasMany('App\Models\Lead','employee_id','id');
     }
 
+    public function applications()
+    {
+        return $this->hasMany('App\Models\Application','employee_id','id');
+    }
+
+    public function applicationEvents()
+    {
+        return $this->hasMany('App\Models\ApplicationEvent','employee_id','id');
+    }
+
+    public function contacts()
+    {
+        return $this->hasMany('App\Models\Contact','employee_id','id');
+    }
+
+    public function contactEvents()
+    {
+        return $this->hasMany('App\Models\ContactEvent','employee_id','id');
+    }
+
     public function kpiIndicator ()
     {
         return $this->hasOne('App\Models\KpiIndicator');

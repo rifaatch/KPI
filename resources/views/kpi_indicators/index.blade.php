@@ -22,7 +22,7 @@
                 <h4 >Kpi Indicators</h4>
             </div>
 
-            <div class="col-md-3 col-sm-12 col-xs-12" role="group">
+            <div class="col-md-6 col-sm-12 col-xs-12" role="group">
                 <a href="{{ route('kpi_indicators.kpi_indicator.create') }}" class="btn btn-success float-md-right" style="margin-bottom: 2px" title="Create New Kpi Indicator">
                     <i class="fas fa-plus"></i>
                 </a>
@@ -40,13 +40,23 @@
 
        {{--     <div class="table-responsive">--}}
                 <div class="row">
-                    <div class="col-md-6 col-xs-6 col-sm-6 ">
+                    <div class="col-md-9 col-xs-9 col-sm-9 ">
                 <table class="table table-striped">
                     <thead>
+                    <tr >all numbers are per day </tr>
                         <tr>
                             <th scope="col">Employee</th>
-                            <th scope="col">Actions / Day</th>
-                            <th scope="col">leads/Day</th>
+
+                            <th scope="col">new leads</th>
+                            <th scope="col">lead events</th>
+
+                            <th scope="col">new applications</th>
+                            <th scope="col">application events</th>
+
+
+                            <th scope="col">lnew contacts</th>
+                            <th scope="col">contact events</th>
+
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -55,8 +65,17 @@
                         <tr>
 
                             <th scope="row">{{ optional($kpiIndicator->employee)->name }}</th>
-                            <td>{{ $kpiIndicator->action }}</td>
+
                             <td>{{ $kpiIndicator->newlead }}</td>
+                            <td>{{ $kpiIndicator->action }}</td>
+
+                            <td>{{ $kpiIndicator->new_applications }}</td>
+                            <td>{{ $kpiIndicator->application_events }}</td>
+
+                            <td>{{ $kpiIndicator->new_contacts }}</td>
+                            <td>{{ $kpiIndicator->contact_events }}</td>
+
+
 
                             <td>
 

@@ -58,16 +58,40 @@ class Office extends Model
         return $this->hasMany('App\Models\Employee','office_id','id');
     }
 
-    public function leads() {
+    public function leads()
+    {
 
         return $this->hasManyThrough('App\Models\Lead', 'App\Models\Employee');
     }
 
+
+// this event for leads .
     public function  events ()
     {
 
         return $this->hasManyThrough('App\Models\LeadEvent', 'App\Models\Employee');
 
+    }
+
+    public function applications ()
+    {
+        return $this->hasManyThrough('App\Models\Application', 'App\Models\Employee');
+
+    }
+
+    public function applicationEvents()
+    {
+        return $this->hasManyThrough('App\Models\ApplicationEvent', 'App\Models\Employee');
+    }
+
+    public function contacts ()
+    {
+        return $this->hasManyThrough('App\Models\Contact', 'App\Models\Employee');
+    }
+
+    public function contactsEvents ()
+    {
+        return $this->hasManyThrough('App\Models\ContactEvent', 'App\Models\Employee');
     }
 
     public function kpiIndicators ()

@@ -15,7 +15,7 @@ class CreateLeadsTable extends Migration {
 		Schema::create('leads', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-            $table->integer('zoho_id');
+            $table->bigInteger('zoho_id');
 			$table->enum('status', array('active','nactive','closed','converted','cancelled','creation'))->nullable();
 			$table->string('client_name', 100)->nullable();
 			$table->string('description', 100)->nullable();

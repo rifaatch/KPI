@@ -17,10 +17,38 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/setdata','API\SetData@addData') ;
+/* leads  *****************************************************************/
+Route::get('/leads/setdata','API\LeadSetData@addData') ;
 
-Route::post('/setdata','API\SetData@addData') ;
+Route::post('/leads/setdata','API\LeadSetData@addData') ;
 
-Route::post('/changeleadownwer','API\ChangeOwner@change') ;
+Route::post('/leads/changeleadownwer','API\LeadChangeOwner@change') ;
 
-Route::get('/changeleadownwer','API\ChangeOwner@change') ;
+Route::get('/leads/changeleadownwer','API\LeadChangeOwner@change') ;
+
+/****************************************************************************************/
+
+
+/* Application  **************************************************************************/
+
+Route::get('/aplications/setdata','API\ApplicationSetData@addData') ;
+
+Route::post('/aplications/setdata','API\ApplicationSetData@addData') ;
+
+Route::post('/aplications/change-application-ownwer','API\ApplicationChangeOwner@change') ;
+
+Route::get('/aplications/change-application-owner','API\ApplicationChangeOwner@change') ;
+
+
+/*****************************************************************************************/
+
+/* Contacts ******************************************************************************/
+
+Route::get('/contacts/setdata','API\ContactsSetData@addData') ;
+
+Route::post('/contacts/setdata','API\ContactsSetData@addData') ;
+
+Route::post('/contacts/change-contact-owner','API\ContactsChangeOwner@change') ;
+
+Route::get('/contacts/change-contact-owner','API\ContactsChangeOwner@change') ;
+

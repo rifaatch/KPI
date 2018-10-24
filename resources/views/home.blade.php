@@ -35,7 +35,7 @@
                                             class="fas fa-chart-line"></i> Leads KPI indicator Between 2 dates</a></div>
                             <div class="col-lg-3 col-md-3 col-12  box"><br> <a href="{{route('leads.pending')}}"> <i
                                             class="fas fa-folder-open"></i> Pending leads</a></div>
-                  
+
 
                             <div class="col-lg-3 col-md-3 col-12  box"><br> <a href="{{route('leads.search')}}"><i
                                             class="fas fa-search"></i> Lead Search</a></div>

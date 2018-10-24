@@ -18,6 +18,13 @@ class CreateKpiIndicatorTable extends Migration {
 			$table->integer('employee_id')->index('employee_id')->unique();
 			$table->integer('action');
 			$table->integer('newlead');
+
+            $table->integer('new_applications');
+            $table->integer('application_events');
+
+            $table->integer('new_contacts');
+            $table->integer('contact_events');
+
 			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 		});
 	}

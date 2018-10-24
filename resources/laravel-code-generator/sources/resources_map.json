@@ -23,5 +23,25 @@
         "model-name": "Holiday",
         "resource-file": "holidays.json",
         "table-name": "holidays"
+    },
+    {
+        "model-name": "Application",
+        "resource-file": "applications.json",
+        "table-name": "applications"
+    },
+    {
+        "model-name": "ApplicationEvent",
+        "resource-file": "application_events.json",
+        "table-name": "application_events"
+    },
+    {
+        "model-name": "Contact",
+        "resource-file": "contacts.json",
+        "table-name": "contacts"
+    },
+    {
+        "model-name": "ContactEvent",
+        "resource-file": "contact_events.json",
+        "table-name": "contact_events"
     }
 ]

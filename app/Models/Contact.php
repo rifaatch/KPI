@@ -4,21 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class KpiIndicator extends Model
+class Contact extends Model
 {
     
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
+
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'kpi_indicators';
+    protected $table = 'contacts';
 
     /**
     * The database primary key value.
@@ -33,15 +28,12 @@ class KpiIndicator extends Model
      * @var array
      */
     protected $fillable = [
-                  'employee_id',
-                  'action',
-                  'newlead',
-                   'new_applications',
-                   'application_events',
-                   'new_contacts',
-                   'contact_events'
-
-
+                  'zoho_id',
+                  'status',
+                  'client_name',
+                  'description',
+                  'source',
+                  'employee_id'
               ];
 
     /**
@@ -58,6 +50,8 @@ class KpiIndicator extends Model
      */
     protected $casts = [];
     
+
+
     /**
      * Get the employee for this model.
      */
@@ -66,13 +60,15 @@ class KpiIndicator extends Model
         return $this->belongsTo('App\Models\Employee','employee_id','id');
     }
 
-
     /**
-     * Get created_at in array format
-     *
-     * @param  string  $value
-     * @return array
+     * Get the contactEvent for this model.
      */
+    public function contactEvent()
+    {
+        return $this->hasMany('App\Models\ContactEvent','contact_id','id');
+    }
+
+
 
 
 }

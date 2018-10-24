@@ -243,3 +243,39 @@ Route::group(
          ->where('id', '[0-9]+');
 
 });
+
+Route::group(
+[
+    'prefix' => 'applications',
+], function () {
+
+
+
+});
+
+Route::group(
+[
+    'prefix' => 'application_events',
+], function () {
+
+
+
+});
+
+Route::group(
+[
+    'prefix' => 'contacts',
+], function () {
+
+
+
+});
+
+Route::group(
+[
+    'prefix' => 'contact_events',
+], function () {
+
+
+
+});

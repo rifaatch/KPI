@@ -1,33 +1,27 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: user
- * Date: 11/10/2018
- * Time: 03:38 م
- */
+
 
 namespace App\Http\Controllers\API;
 
-
 use App\Http\Controllers\Controller;
+use App\Models\Application;
+use App\Models\ApplicationEvent;
 use App\Models\Employee;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Lead;
-use App\Models\LeadEvent;
 
 
-class ChangeOwner extends Controller
+
+class ApplicationChangeOwner
 {
-
     public function change()
     {
         try
         {
             $data = array();
 
-            $data['leadid'] = Input::get ('leadid'); //it is Zoho lead id
+            $data['applicationid'] = Input::get ('applicationid'); //it is Zoho applicationid id
             $data['old_employee_id'] = Input::get ('old-employee-id');
             $data['new_employee_id'] = Input::get ('new-employee-id');
             $data['description']=Input::get('description'); //optional
@@ -53,7 +47,7 @@ class ChangeOwner extends Controller
 
                 } else
 
-                    {
+                {
 
                     if (!$oldEmployee) {
                         $responce = $this->renderResponse("the new employee not exist", 101);
@@ -63,11 +57,11 @@ class ChangeOwner extends Controller
 
 
 
-                        $lead = Lead::where('zoho_id', '=', $data['leadid'])->first();
-                        if ($lead) {
-                            // change the owner id and in answer a new lead event .
+                        $application = Application::where('zoho_id', '=', $data['applicationid'])->first();
+                        if ($application) {
+                            // change the owner id and in answer a new applicationid event .
 
-                            if ( $lead->employee_id <> $oldEmployee->id )
+                            if ( $application->employee_id <> $oldEmployee->id )
                             {
 
                                 $responce = $this->renderResponse("the old  employee not match with current employee", 101);
@@ -76,13 +70,13 @@ class ChangeOwner extends Controller
                             else {
 
 
-                                $leadEvent = LeadEvent::where('action_id', '=', $data['action_id'])->first();
-                                if (!$leadEvent) {
-                                    $leadEvent = LeadEvent::create([
+                                $applicationEvent = ApplicationEvent::where('action_id', '=', $data['action_id'])->first();
+                                if (!$applicationEvent) {
+                                    $applicationEvent = ApplicationEvent::create([
 
-                                        'lead_id' => $lead->id,
-                                        'zoho_id' => $data['leadid'],
-                                        'employ_id' => $newEmployee->id,
+                                        'application_id' => $application->id,
+                                        'zoho_id' => $data['applicationid'],
+                                        'employee_id' => $newEmployee->id,
                                         'old_employee_id' => $oldEmployee->id,
                                         'action_name' => $data['action'],
                                         'action_id' => $data['action_id'],
@@ -91,22 +85,22 @@ class ChangeOwner extends Controller
 
                                     ]);
 
-                                    $lead->employee_id = $newEmployee->id;
-                                    $lead->save();
+                                    $application->employee_id = $newEmployee->id;
+                                    $application->save();
 
-                                    $responce = $this->renderResponse ( "The lead Successfully updated" ,1);
+                                    $responce = $this->renderResponse ( "The application Successfully updated" ,1);
                                     return json_encode ($responce);
                                 }
 
-                            else {
-                                $responce = $this->renderResponse("this lead event is already exist", 101);
-                                return json_encode($responce);
-                            }
+                                else {
+                                    $responce = $this->renderResponse("this application event is already exist", 101);
+                                    return json_encode($responce);
+                                }
                             }
                         } else {
 
-                            // lead not exist .
-                            $responce = $this->renderResponse("invalid lead ", 101);
+                            // application not exist .
+                            $responce = $this->renderResponse("invalid application ", 101);
                             return json_encode($responce);
 
                         }
@@ -137,7 +131,7 @@ class ChangeOwner extends Controller
         return Validator::make (
             $data,
             [
-                'leadid' => 'required|numeric',
+                'applicationid' => 'required|numeric',
                 'old_employee_id'=>'required|exists:employees,zoho_id',
                 'new_employee_id' => 'required|exists:employees,zoho_id',
                 'description' => 'nullable|string',
@@ -158,8 +152,8 @@ class ChangeOwner extends Controller
 
         return $messages = array(
 
-            'leadid.required' => '101:the lead_id is missing.',
-            'leadid.numeric' => '101:the leadid must be a number.',
+            'applicationid.required' => '101:the applicationid is missing.',
+            'applicationid.numeric' => '101:the applicationid must be a number.',
 
             'old_employee_id.required' => '101:old_employee_id is missing.',
             'old_employee_id.exists' => '101: old_employee_id not exist on table employees.',

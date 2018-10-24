@@ -15,7 +15,7 @@ use Carbon\Carbon;
 
 
 
-class SetData extends Controller
+class LeadSetData extends Controller
 {
 
     public function addData ()
@@ -94,7 +94,7 @@ class SetData extends Controller
                         'client_name' => $data['clientName'],
                         'description' => $data['description'],
                         'action' => $data['action'],
-                        'employee_id' => $data['employId'],
+                        'employee_id' => $employee->id,
                         'source'=> $data['source']
                     ]);
 
@@ -102,9 +102,10 @@ class SetData extends Controller
 
                         'lead_id' => $lead->id,
                         'zoho_id' => $data['leadid'],
-                        'employee_id' => $data['employId'],
-                        'event_name'=>$data['action'],
+                        'employee_id' => $employee->id,
+                        'action_name'=>$data['action'],
                         'action_id'=>$data['action_id'],
+                        'description' => $data['description'],
                         'updated_at'=>carbon::now()->toDateTimeString()  // todo check the date when we go live .
                     ]);
                 }

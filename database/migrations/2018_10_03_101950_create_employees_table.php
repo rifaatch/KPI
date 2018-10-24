@@ -16,7 +16,7 @@ class CreateEmployeesTable extends Migration {
 		{
 			$table->integer('id', true);
 			$table->string('name', 100);
-			$table->integer('zoho_id');
+			$table->bigInteger('zoho_id');
 			$table->integer('office_id')->index('office_id');
 			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 		});
