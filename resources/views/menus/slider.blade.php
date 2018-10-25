@@ -7,8 +7,8 @@
         <p> <a href="{{route('home')}}"> <i class="fas fa-home"></i> home</a></p>
 
         <li class="active">
-            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Stats list</a>
-            <ul class="collapse list-unstyled" id="homeSubmenu">
+            <a href="#leadSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Leads Stats </a>
+            <ul class="collapse list-unstyled" id="leadSubmenu">
 
                 <li>
                     <a href="{{route('leads.lead.byoffice')}}">New  Daily leads by Offices</a>
@@ -26,7 +26,7 @@
 
 
                 <li>
-                    <a href="{{route('kpi_indicators.leads.btw2dates')}}">Leads KPI indicator Between 2 dates</a>
+                    <a href="{{route('kpi_indicators.leads.btw2dates')}}">KPI indicator Between 2 dates</a>
                 </li>
 
                 <li>
@@ -39,9 +39,63 @@
                 </li>
             </ul>
         </li>
-        <li>
-            <a href="#">About</a>
+
+        <li class="active">
+            <a href="#applicationsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Applications Stats </a>
+            <ul class="collapse list-unstyled" id="applicationsSubmenu">
+
+
+                <li>
+                    <a href="{{route('application.byofficebtw2dates')}}">New Applications by Offices between 2 dates</a>
+                </li>
+                <li>
+                    <a href="{{route('applications.bysources')}}">New Applications by Sources between 2 dates</a>
+                </li>
+
+                <li>
+                    <a href="{{route('appEvents.list.btwdates.offices')}}">Application Events Between 2 dates</a>
+                </li>
+
+
+                <li>
+                    <a href="{{route('kpi_indicators.leads.btw2dates')}}"> KPI indicator Between 2 dates</a>
+                </li>
+
+                <li>
+                    <a href="{{route('applications.pending')}}">Pending Applications</a>
+                </li>
+
+
+                <li>
+                    <a href="{{route('applications.search')}}"><i class="fas fa-search"></i> Application Search</a>
+                </li>
+            </ul>
         </li>
+
+        <li class="active">
+            <a href="#ContactSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Contacts Stats </a>
+            <ul class="collapse list-unstyled" id="ContactSubmenu">
+
+
+                <li>
+                    <a href="">New Contacts by Offices between 2 dates</a>
+                </li>
+               
+                <li>
+                    <a href="">Contacts Events Between 2 dates</a>
+                </li>
+
+
+                <li>
+                    <a href="{{route('kpi_indicators.leads.btw2dates')}}"> KPI indicator Between 2 dates</a>
+                </li>
+
+                <li>
+                    <a href=""><i class="fas fa-search"></i> Contacts Search</a>
+                </li>
+            </ul>
+        </li>
+
         <li>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
@@ -60,6 +114,10 @@
                 </li>
 
             </ul>
+        </li>
+
+        <li>
+            <a href="#">About</a>
         </li>
 
     </ul>

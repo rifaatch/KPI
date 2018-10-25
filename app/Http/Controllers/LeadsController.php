@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Lead;
 use App\Models\Office;
-use App\Models\Zoho;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -90,7 +89,8 @@ class LeadsController extends Controller
             return view('newleads.byemployeesbtwdates', compact('employees','offices' ,'selectedOffice',  'date1' ,'date2'));
 
 
-        }  }
+        }
+    }
 
         public function showNewleadsByEmployeesbtwdates ( Request $request )
     {

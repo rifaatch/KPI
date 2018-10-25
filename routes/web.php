@@ -249,6 +249,39 @@ Route::group(
     'prefix' => 'applications',
 ], function () {
 
+    Route::get('/byoffice-btw-2dates/','ApplicationsController@ApplicationByOfficeBtw2Dates')
+        ->name('application.byofficebtw2dates');
+
+    Route::post('/byofficebtn2date/','ApplicationsController@showNewApplicationsByOfficeBtw2Dates')
+        ->name('application.byofficebtw_2_dates');
+
+    Route::get('/byoffice/byemployees/{officeid?}/{date1?}/{date2?}','ApplicationsController@ByOfficeByEmployeesBydates')
+        ->name('applications.byofficeemployeesbydates');
+
+    Route::post('/byemployees/btn2date/','ApplicationsController@showNewAppsByEmployeesbtwdates')
+        ->name('applications.byemployees.dates');
+
+    Route::get('/listofapps/{employeeid}/{date1}/{date2?}','ApplicationsController@listOfNewAppsByemp')
+        ->name('applications.new.byemp');
+
+    Route::get('/application/bysources','ApplicationsController@bySources')
+        ->name('applications.bysources');
+
+    Route::post('/application/group/bysources','ApplicationsController@groupBySources')
+        ->name('applications.group.bysources');
+
+    Route::get('/application/details/bysources/{date1}/{date2}/{source?}','ApplicationsController@listOfNewAppsBySource')
+        ->name('applications.details.bysources');
+
+    Route::get('/pending/applications','ApplicationsController@pendingApplication')
+        ->name('applications.pending');
+
+    Route::get('/listofapplications/search','ApplicationsController@search')
+        ->name('applications.search');
+
+    Route::post('/listofapplications/search/getdata','ApplicationsController@getSearchResult')
+        ->name('applications.search.getdata');
+
 
 
 });
@@ -257,6 +290,27 @@ Route::group(
 [
     'prefix' => 'application_events',
 ], function () {
+
+    Route::get('appevent/{app_id}', 'ApplicationEventsController@AppEvents')
+        ->name('appEvents.appEvent.list');
+
+    Route::get('btw2dates/', 'ApplicationEventsController@appEventsBtw2dates')
+        ->name('appEvents.list.btwdates.offices');
+
+    Route::post('byoffices/btw2dates/', 'ApplicationEventsController@appEventsBtw2datesByOffices')
+        ->name('appEvents.appEvent.list.btwdates.offices');
+
+    Route::get('byemployee/btw2dates/{office_id}/{date1}/{date2?}', 'ApplicationEventsController@listOfEventsByemp')
+        ->name('appEvents.btwdates.employee');
+
+    Route::post('byoemployee/btwdates/', 'ApplicationEventsController@appEventsBtw2datesByEmployee')
+        ->name('appEvents.list.btwdates.employees');
+
+    Route::get('eventdetails/btw2dates/{employee_id}/{date1}/{date2?}', 'ApplicationEventsController@eventsDetailsByemployeeByDates')
+        ->name('appEvents.btwdates.employee.details');
+
+    Route::post('listevent/btwdates/', 'ApplicationEventsController@ListeventsByemployeeByDates')
+        ->name('appEvents.btwdates.employee.details.submit');
 
 
 

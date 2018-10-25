@@ -65,7 +65,7 @@ class ApplicationEvent extends Model
      */
     public function application()
     {
-        return $this->belongsTo('App\Models\Application','aplication_id','id');
+        return $this->belongsTo('App\Models\Application','application_id','id');
     }
 
     /**
@@ -73,7 +73,7 @@ class ApplicationEvent extends Model
      */
     public function employee()
     {
-        return $this->belongsTo('App\Models\Employee','employ_id','id');
+        return $this->belongsTo('App\Models\Employee','employee_id','id');
     }
 
 
