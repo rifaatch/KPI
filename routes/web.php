@@ -321,6 +321,27 @@ Route::group(
     'prefix' => 'contacts',
 ], function () {
 
+    Route::get('/byoffice-btw-2dates/','ContactsController@ContactByOfficeBtw2Dates')
+        ->name('contact.byofficebtw2dates');
+
+    Route::post('/byofficebtn2date/','ContactsController@showNewContactsByOfficeBtw2Dates')
+        ->name('contact.byofficebtw_2_dates');
+
+    Route::get('/byoffice/byemployees/{officeid?}/{date1?}/{date2?}','ContactsController@ByOfficeByEmployeesBydates')
+        ->name('contacts.byofficeemployeesbydates');
+
+    Route::post('/byemployees/btn2date/','ContactsController@showNewContactsByEmployeesbtwdates')
+        ->name('contacts.byemployees.dates');
+
+    Route::get('/listofapps/{employeeid}/{date1}/{date2?}','ContactsController@listOfNewContactsByemp')
+        ->name('contacts.new.byemp');
+
+    Route::get('/listofapplications/search','ContactsController@search')
+        ->name('contacts.search');
+
+    Route::post('/listofapplications/search/getdata','ContactsController@getSearchResult')
+        ->name('contacts.search.getdata');
+
 
 
 });
@@ -329,6 +350,28 @@ Route::group(
 [
     'prefix' => 'contact_events',
 ], function () {
+
+    Route::get('contactevents/{contact_id}', 'ContactEventsController@contactEvents')
+        ->name('contactEvents.contactEvent.list');
+
+    Route::get('btw2dates/', 'ContactEventsController@contactEventsBtw2dates')
+        ->name('contactEvents.list.btwdates.offices');
+
+    Route::post('byoffices/btw2dates/', 'ContactEventsController@contactEventsBtw2datesByOffices')
+        ->name('contactEvents.contactEvent.list.btwdates.offices');
+
+    Route::get('byemployee/btw2dates/{office_id}/{date1}/{date2?}', 'ContactEventsController@listOfEventsByemp')
+        ->name('contactEvents.btwdates.employee');
+
+    Route::post('byoemployee/btwdates/', 'ContactEventsController@contactEventsBtw2datesByEmployee')
+        ->name('contactEvents.list.btwdates.employees');
+
+
+    Route::get('eventdetails/btw2dates/{employee_id}/{date1}/{date2?}', 'ContactEventsController@eventsDetailsByemployeeByDates')
+        ->name('contactEvents.btwdates.employee.details');
+
+    Route::post('listevent/btwdates/', 'ContactEventsController@ListeventsByemployeeByDates')
+        ->name('contactEvents.btwdates.employee.details.submit');
 
 
 

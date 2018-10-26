@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 
-
 use App\Models\Employee;
 use App\Models\Application;
 
@@ -17,30 +16,35 @@ use Exception;
 class ApplicationEventsController extends Controller
 {
 
-public  function  AppEvents ($app_id )
-{
+    public function __construct()
+    {
+        //if trying to access this controller without being authenticated, it will ask him for authentication
+        $this->middleware('auth');
+
+    }
+
+    public function AppEvents($app_id)
+    {
 
 
+        $appEvents = ApplicationEvent::where('application_id', '=', $app_id)->orderBy('created_at', 'desc')->paginate(25);
+        //   dd($leadevents->total());
+        $application = Application::where('id', '=', $app_id)->first();
 
-    $appEvents = ApplicationEvent::where('application_id', '=', $app_id)->orderBy('created_at', 'desc')->paginate(25);
-    //   dd($leadevents->total());
-    $application = Application::where('id', '=', $app_id)->first();
-
-    return view('application_events.eventslist', compact('application', 'appEvents'));
-
+        return view('application_events.eventslist', compact('application', 'appEvents'));
 
 
-}
+    }
 
-public function appEventsBtw2dates ()
+    public function appEventsBtw2dates()
 
 
-{
-    $currentDate = Carbon::now();
-    $selectedDate = $currentDate->toDateString();
-    return view('application_events.eventsbtw2dates', compact('selectedDate'));
+    {
+        $currentDate = Carbon::now();
+        $selectedDate = $currentDate->toDateString();
+        return view('application_events.eventsbtw2dates', compact('selectedDate'));
 
-}
+    }
 
     public function appEventsBtw2datesByOffices(Request $request)
     {

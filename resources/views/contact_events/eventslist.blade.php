@@ -22,36 +22,36 @@
             @if(!empty($successMsg))
                 <div class="alert alert-success"><h4> {{ $successMsg }} </h4></div>
             @endif
-            <h6 class="col-lg-6 col-md-6 col-sm-12 col-12"> Application Zoho id :{{$application->zoho_id}} </h6>
-            <h6 class="col-lg-6 col-md-6 col-sm-12 col-12"> Created at :{{$application->created_at}} </h6>
-            <h4 class="col-lg-6 col-md-6 col-sm-12 col-12 text-info"> Client:{{$application->client_name}} </h4>
-            <h4 class="col-lg-6 col-md-6 col-sm-12 col-12"> Employee:{{$application->employee->name}} </h4>
+            <h6 class="col-lg-6 col-md-6 col-sm-12 col-12"> Contact Zoho id :{{$contact->zoho_id}} </h6>
+            <h6 class="col-lg-6 col-md-6 col-sm-12 col-12"> Created at :{{$contact->created_at}} </h6>
+            <h4 class="col-lg-6 col-md-6 col-sm-12 col-12 text-info"> Client:{{$contact->client_name}} </h4>
+            <h4 class="col-lg-6 col-md-6 col-sm-12 col-12"> Employee:{{$contact->employee->name}} </h4>
 
-            <h5 class="col-lg-12 col-sm-12 col-12" style="margin: 10px 0 15px 25px"> {{$application->description}} </h5>
+            <h5 class="col-lg-12 col-sm-12 col-12" style="margin: 10px 0 15px 25px"> {{$contact->description}} </h5>
 
-            @if ( $appEvents->total() == 0 )
-                <div class="alert alert-danger"><h3> Zero application Event </h3></div>
+            @if ( $contactEvents->total() == 0 )
+                <div class="alert alert-danger"><h3> Zero Contact Events </h3></div>
             @else
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <span class="float-right text-info h4">   Total application event : {{$appEvents->total()}}</span>
+                            <span class="float-right text-info h4">   Total Contact events : {{$contactEvents->total()}}</span>
                         </div>
                     </div>
 
 
-                    @foreach ( $appEvents as $applicationEvent )
+                    @foreach ( $contactEvents as $contactEvent )
 
                         <div class="row  ">
-                            <span class="col-lg-3 col-md-6 col-sm-12 col-xs-12">{{$applicationEvent->created_at}}</span>
+                            <span class="col-lg-3 col-md-6 col-sm-12 col-xs-12">{{$contactEvent->created_at}}</span>
                         </div>
                         <div class="row  ">
                             <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 "><span
-                                        class="">Zoho id : &nbsp;</span> {{$applicationEvent->zoho_id}}</div>
+                                        class="">Zoho id : &nbsp;</span> {{$contactEvent->zoho_id}}</div>
 
                             <div class="col-lg-3  col-sm-12 col-xs-12 "></div>
                             <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12   ">
-                                <span class="">Action : &nbsp;</span> {{$applicationEvent->action_name}}
+                                <span class="">Action : &nbsp;</span> {{$contactEvent->action_name}}
                             </div>
 
 
@@ -59,14 +59,14 @@
 
                         <div class="row  ">
                             <div class="col-lg-4 col-sm-12 col-xs-12 "><span
-                                        class="">Employee : &nbsp;</span> {{$applicationEvent->employee->name}}</div>
+                                        class="">Employee : &nbsp;</span> {{$contactEvent->employee->name}}</div>
 
 
                         </div>
 
                         <div class="row">
                             <div class="col-12" style="margin: 15px">
-                                {{$application->description}} </div>
+                                {{$contactEvent->description}} </div>
                         </div>
 
                         <div class="row">
@@ -75,7 +75,7 @@
                         </div>
 
                     @endforeach
-                    <div class="float-right">   {{ $appEvents->links() }} </div>
+                    <div class="float-right">   {{ $contactEvents->links() }} </div>
                     @endif
                 </div>
         </div>

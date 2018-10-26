@@ -40,8 +40,8 @@ class HolidaysController extends Controller
      */
     public function create()
     {
-        $offices = Office::pluck('office_name','id')->all();
-        
+        $offices = Office::pluck('office_name', 'id')->all();
+
         return view('holidays.create', compact('offices'));
     }
 
@@ -55,18 +55,18 @@ class HolidaysController extends Controller
     public function store(Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             Holiday::create($data);
 
             return redirect()->route('holidays.holiday.index')
-                             ->with('success_message', 'Holiday was successfully added!');
+                ->with('success_message', 'Holiday was successfully added!');
 
         } catch (Exception $exception) {
 
             return back()->withInput()
-                         ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request!']);
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request!']);
         }
     }
 
@@ -94,9 +94,9 @@ class HolidaysController extends Controller
     public function edit($id)
     {
         $holiday = Holiday::findOrFail($id);
-        $offices = Office::pluck('office_name','id')->all();
+        $offices = Office::pluck('office_name', 'id')->all();
 
-        return view('holidays.edit', compact('holiday','offices'));
+        return view('holidays.edit', compact('holiday', 'offices'));
     }
 
     /**
@@ -110,20 +110,20 @@ class HolidaysController extends Controller
     public function update($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             $holiday = Holiday::findOrFail($id);
             $holiday->update($data);
 
             return redirect()->route('holidays.holiday.index')
-                             ->with('success_message', 'Holiday was successfully updated!');
+                ->with('success_message', 'Holiday was successfully updated!');
 
         } catch (Exception $exception) {
 
             return back()->withInput()
-                         ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request!']);
-        }        
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request!']);
+        }
     }
 
     /**
@@ -140,20 +140,20 @@ class HolidaysController extends Controller
             $holiday->delete();
 
             return redirect()->route('holidays.holiday.index')
-                             ->with('success_message', 'Holiday was successfully deleted!');
+                ->with('success_message', 'Holiday was successfully deleted!');
 
         } catch (Exception $exception) {
 
             return back()->withInput()
-                         ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request!']);
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request!']);
         }
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
-     * @param Illuminate\Http\Request\Request $request 
+     * @param Illuminate\Http\Request\Request $request
      * @return array
      */
     protected function getData(Request $request)
@@ -166,10 +166,8 @@ class HolidaysController extends Controller
 
         ];
 
-        
+
         $data = $request->validate($rules);
-
-
 
 
         return $data;

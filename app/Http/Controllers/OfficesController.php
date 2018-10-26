@@ -10,6 +10,13 @@ use Exception;
 class OfficesController extends Controller
 {
 
+    public function __construct()
+    {
+        //if trying to access this controller without being authenticated, it will ask him for authentication
+        $this->middleware('auth');
+
+    }
+
     /**
      * Display a listing of the offices.
      *
@@ -29,8 +36,8 @@ class OfficesController extends Controller
      */
     public function create()
     {
-        
-        
+
+
         return view('offices.create');
     }
 
@@ -44,18 +51,18 @@ class OfficesController extends Controller
     public function store(Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             Office::create($data);
 
             return redirect()->route('offices.office.index')
-                             ->with('success_message', 'Office was successfully added!');
+                ->with('success_message', 'Office was successfully added!');
 
         } catch (Exception $exception) {
 
             return back()->withInput()
-                         ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request!']);
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request!']);
         }
     }
 
@@ -83,7 +90,7 @@ class OfficesController extends Controller
     public function edit($id)
     {
         $office = Office::findOrFail($id);
-        
+
 
         return view('offices.edit', compact('office'));
     }
@@ -99,20 +106,20 @@ class OfficesController extends Controller
     public function update($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             $office = Office::findOrFail($id);
             $office->update($data);
 
             return redirect()->route('offices.office.index')
-                             ->with('success_message', 'Office was successfully updated!');
+                ->with('success_message', 'Office was successfully updated!');
 
         } catch (Exception $exception) {
 
             return back()->withInput()
-                         ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request!']);
-        }        
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request!']);
+        }
     }
 
     /**
@@ -129,33 +136,31 @@ class OfficesController extends Controller
             $office->delete();
 
             return redirect()->route('offices.office.index')
-                             ->with('success_message', 'Office was successfully deleted!');
+                ->with('success_message', 'Office was successfully deleted!');
 
         } catch (Exception $exception) {
 
             return back()->withInput()
-                         ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request!']);
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request!']);
         }
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
-     * @param Illuminate\Http\Request\Request $request 
+     * @param Illuminate\Http\Request\Request $request
      * @return array
      */
     protected function getData(Request $request)
     {
         $rules = [
             'office_name' => 'required|string|min:1|max:100',
-     
+
         ];
 
-        
+
         $data = $request->validate($rules);
-
-
 
 
         return $data;

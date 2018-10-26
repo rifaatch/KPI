@@ -11,6 +11,12 @@ use Exception;
 
 class EmployeesController extends Controller
 {
+    public function __construct()
+    {
+        //if trying to access this controller without being authenticated, it will ask him for authentication
+        $this->middleware('auth');
+
+    }
 
     /**
      * Display a listing of the employees.

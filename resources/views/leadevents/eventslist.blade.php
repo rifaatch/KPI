@@ -5,9 +5,8 @@
         border-bottom: solid 1px;
         border-left: solid 1px;
         border-right: solid 1px;
-        border-color:#dfdfdf!important;
+        border-color: #dfdfdf !important;
     }
-
 
 
 </style>
@@ -21,84 +20,68 @@
         <div class="row justify-content-center">
 
             @if(!empty($successMsg))
-                <div class="alert alert-success"> <h4> {{ $successMsg }} </h4></div>
+                <div class="alert alert-success"><h4> {{ $successMsg }} </h4></div>
             @endif
-            <h4 class="col-lg-4 col-sm-12 col-12"> Lead Zoho id :{{$lead->zoho_id}} </h4>
-               <br>
-          <h4 class="col-lg-4 col-sm-12 col-12">   Client name :{{$lead->client_name}} </h4>
-                <h4 class="col-lg-4 col-sm-12 col-12">   Employee name :{{$lead->employee->name}} </h4>
-                <h4 class="col-lg-4 col-sm-12 col-12">  Created at :{{$lead->created_at}} </h4>
-                <h4 class="col-lg-8 col-sm-12 col-12">  Descrption :{{$lead->descrption}} </h4>
+            <h6 class="col-lg-6 col-md-6 col-sm-12 col-12"> Lead Zoho id :{{$lead->zoho_id}} </h6>
+            <h6 class="col-lg-6 col-md-6 col-sm-12 col-12"> Created at :{{$lead->created_at}} </h6>
+            <h4 class="col-lg-6 col-md-6 col-sm-12 col-12 text-info"> {{$lead->client_name}} </h4>
+            <h4 class="col-lg-6  col-md-6 col-sm-12 col-12"> Employee :{{$lead->employee->name}} </h4>
 
-                @if ( $leadevents->total() == 0 )
-                    <div class="alert alert-danger"> <h3> Zero Event  </h3></div>
-                    @else
-                    <div class="container">
-                        <span >   Total event : {{$leadevents->total()}}</span>
+            <h5 class="col-lg-12 col-sm-12 col-12"> Descrption :{{$lead->descrption}} </h5>
+
+            @if ( $leadevents->total() == 0 )
+                <div class="alert alert-danger"><h3> Zero Event </h3></div>
+            @else
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                    <span class="float-right text-info h4">   Total lead events : {{$leadevents->total()}}</span>
+                        </div>
+                    </div>
+
+
+
+                    @foreach ( $leadevents as $leadevent )
+
                         <div class="row  ">
+                            <span class="col-lg-3 col-sm-12 col-xs-12">{{$leadevent->created_at}}</span>
+                        </div>
+                        <div class="row  ">
+                            <div class="col-lg-3 col-sm-12 col-xs-12 "><span
+                                        class="">Zoho id : &nbsp;</span> {{$leadevent->zoho_id}}</div>
 
-                            <div class="col-lg  d-none d-lg-block cell" >
-                                <span class="">Zoho id</span>
-                            </div>
-                            <div class="col-lg d-none d-lg-block cell" >
-                                <span class="">Employee </span>
-
-                            </div>
-                            <div class="col-lg d-none d-lg-block cell" >
-                                <span class="">Event</span>
-
+                            <div class="col-lg-3 col-sm-12 col-xs-12 "></div>
+                            <div class="col-lg-3 col-sm-12 col-xs-12   ">
+                                <span class="">Action : &nbsp;</span> {{$leadevent->action_name}}
                             </div>
 
-
-                            <div class="col-sm col-lg-4 d-none d-lg-block cell " >
-                                <span class="">Description</span>
-
-                            </div>
-                            <div class="col-lg d-none d-lg-block cell" >
-                                <span class="">Created at</span>
-
-                            </div>
 
                         </div>
-                        <div class="row d-xs-none -d-sm-none " style="height: 5px"></div>
-                        @foreach ( $leadevents as $leadevent )
 
-                            <div class="row ">
+                        <div class="row  ">
+                            <div class="col-lg-4 col-sm-12 col-xs-12 "><span
+                                        class="">Employee : &nbsp;</span> {{$leadevent->employee->name}}</div>
 
-                                <div class="col-sm cell " >
-                                    <span class="d-md-none -d-lg-none -d-xl-none">Zoho id :</span> {{$leadevent->action_id}}
-                                </div>
-                                <div class="col-sm  cell " >
-                                    <span class="d-md-none -d-lg-none -d-xl-none"> Employee :</span>
-                                    {{$leadevent->employee->name}}
-                                </div>
-                                <div class="col-sm cell " >
-                                    <span class="d-md-none -d-lg-none -d-xl-none">Event:</span>
-                                   {{$leadevent->action_name}}
-                                </div>
 
-                                <div class="col-sm col-lg-4 cell " >
-                                    <span class="d-md-none -d-lg-none -d-xl-none">Description :</span>
-                                    {{$leadevent->description}}
-                                </div>
+                        </div>
 
-                                <div class="col-sm cell " >
-                                    <span class="d-md-none -d-lg-none -d-xl-none">Created at:</span>
-                                    {{$leadevent->created_at}}
-                                </div>
+                        <div class="row">
+                            <div class="col-12" style="margin: 15px">
+                                {{$leadevent->description}} </div>
+                        </div>
 
+                        <div class="row">
+                            <div class="col-12" style="margin:5px 0 5px 0;border-bottom: #adb5bd solid 1px">
                             </div>
-                            <div class="row d-md-none -d-lg-none -d-xl-none" style="height: 15px"></div>
-                            <div class="row d-xs-none -d-sm-none " style="height: 5px"></div>
+                        </div>
 
-                        @endforeach
-
-                    @endif
-
+                    @endforeach
+                    <div class="float-right">   {{ $leadevents->links() }} </div>
+                      @endif
 
 
+                </div>
         </div>
-    </div>
     </div>
 
 @endsection

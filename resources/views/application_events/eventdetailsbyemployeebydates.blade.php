@@ -38,8 +38,9 @@
                         <div class=" form-group">
                            <div class=" row form-group ">
                                 <label for="employee_id" class="col-md-2 control-label"
-                                       style="padding-left: 0!important; ;padding-right: 0;padding-top: 5px"> <span  class=""> Employee :</span></label>
-                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="padding-top: 5px">
+                                       style="padding: 5px 5px 5px 5px!important; ">
+                                    <span  class=""> Employee :</span></label>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="padding: 5px 5px 5px 5px!important; ">
                                     <select class="form-control" id="employee_id" name="employee_id" required="true">
                                         <option value="" style="display: none;"
                                                 {{ $employee_id == '' ? 'selected' : '' }} disabled selected>Enter Employee Name here...
@@ -54,7 +55,7 @@
                                     {!! $errors->first('employee_id', '<p class="help-block">:message</p>') !!}
                                 </div>
 
-                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="padding-left: 0!important; padding-top: 5px">
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="padding: 5px 5px 5px 5px!important; ">
                                 <input type="text" class="form-control" id="filterby" placeholder="Filter by action name ...">
 
                             </div>

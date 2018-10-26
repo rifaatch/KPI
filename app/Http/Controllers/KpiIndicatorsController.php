@@ -162,94 +162,89 @@ class KpiIndicatorsController extends Controller
         }
     }
 
-    public function LeadsBtwDates ()
+    public function LeadsBtwDates()
     {
         $currentDate = Carbon::now();
         $selectedDate = $currentDate->toDateString();
 
-        return view ('newleads.kpiindicator' , compact('selectedDate'));
+        return view('newleads.kpiindicator', compact('selectedDate'));
     }
 
 
-    public function resultLeadsBtwDates (Request $request   )
+    public function resultLeadsBtwDates(Request $request)
     {
         $date1 = $request->input('selecteddate1');
         $date2 = $request->input('selecteddate2');
-        $dateCalculation=New DateCalculation ;
+        $dateCalculation = New DateCalculation;
 
-        $offices=Office::all();
-        foreach ( $offices as $office )
-        {
-            $workingdays=$dateCalculation->workingKays($date1 ,$date2 );
-            $countofhollidays=Holiday::where('office_id','=',$office->id)->whereDate('date', '>=', $date1)->whereDate('date', '<=', $date2)->get()->count();
-            $newleads=$office->leads()->whereDate('leads.created_at', '>=', $date1)->whereDate('leads.created_at', '<=', $date2)->count();
-            $events=$office->events()->whereDate('Lead_events.created_at', '>=', $date1)->whereDate('Lead_events.created_at', '<=', $date2)->count();
-            $workingdays=$workingdays-$countofhollidays;
-            $office['workingdays']=  $workingdays ;
-            $office['newleads']=  $newleads ;
-            $office['events']=  $events ;
+        $offices = Office::all();
+        foreach ($offices as $office) {
+            $workingdays = $dateCalculation->workingKays($date1, $date2);
+            $countofhollidays = Holiday::where('office_id', '=', $office->id)->whereDate('date', '>=', $date1)->whereDate('date', '<=', $date2)->get()->count();
+            $newleads = $office->leads()->whereDate('leads.created_at', '>=', $date1)->whereDate('leads.created_at', '<=', $date2)->count();
+            $events = $office->events()->whereDate('Lead_events.created_at', '>=', $date1)->whereDate('Lead_events.created_at', '<=', $date2)->count();
+            $workingdays = $workingdays - $countofhollidays;
+            $office['workingdays'] = $workingdays;
+            $office['newleads'] = $newleads;
+            $office['events'] = $events;
 
             // Application
-            $newapplications=$office->applications()->whereDate('applications.created_at', '>=', $date1)->whereDate('applications.created_at', '<=', $date2)->count();
-            $office['newapplications']=  $newapplications ;
+            $newapplications = $office->applications()->whereDate('applications.created_at', '>=', $date1)->whereDate('applications.created_at', '<=', $date2)->count();
+            $office['newapplications'] = $newapplications;
 
             //Application events
 
-            $applicationEvents=$office->applicationEvents()->whereDate('application_events.created_at', '>=', $date1)->whereDate('application_events.created_at', '<=', $date2)->count();
-            $office['applicationEvents']=  $applicationEvents ;
+            $applicationEvents = $office->applicationEvents()->whereDate('application_events.created_at', '>=', $date1)->whereDate('application_events.created_at', '<=', $date2)->count();
+            $office['applicationEvents'] = $applicationEvents;
 
             // Contacts new
 
-            $newcontacts=$office->contacts()->whereDate('contacts.created_at', '>=', $date1)->whereDate('contacts.created_at', '<=', $date2)->count();
-            $office['newcontacts']=  $newcontacts ;
+            $newcontacts = $office->contacts()->whereDate('contacts.created_at', '>=', $date1)->whereDate('contacts.created_at', '<=', $date2)->count();
+            $office['newcontacts'] = $newcontacts;
 
             // Contact events
 
-            $contactEvents=$office->contactsEvents()->whereDate('contact_events.created_at', '>=', $date1)->whereDate('contact_events.created_at', '<=', $date2)->count();
-            $office['contactEvents']=  $contactEvents ;
+            $contactEvents = $office->contactsEvents()->whereDate('contact_events.created_at', '>=', $date1)->whereDate('contact_events.created_at', '<=', $date2)->count();
+            $office['contactEvents'] = $contactEvents;
 
+
+        }
+
+
+        return view('newleads.kpiindicatorresult', compact('offices', 'date1', 'date2'));
+    }
+
+    public function byEmployeesBydates($officeid, $date1, $date2)
+    {
+        $offices = Office::pluck('office_name', 'id')->all();
+        $selectedoffice = Office::where('id', '=', $officeid)->first();
+        $dateCalculation = New DateCalculation;
+        $workingdays = $dateCalculation->workingKays($date1, $date2);
+        $countofhollidays = Holiday::where('office_id', '=', $selectedoffice->id)->whereDate('date', '>=', $date1)
+            ->whereDate('date', '<=', $date2)->get()->count();
+        $workingdays = $workingdays - $countofhollidays;
+
+
+        return view('newleads.kpiindicatorbyemployees', compact('offices', 'selectedoffice', 'date1', 'date2', 'workingdays'));
 
 
     }
 
 
-
-         return view ('newleads.kpiindicatorresult' , compact('offices' , 'date1' , 'date2'));
-    }
-
-    public function  byEmployeesBydates ($officeid , $date1 , $date2)
-       {
-           $offices = Office::pluck('office_name', 'id')->all();
-           $selectedoffice=Office::where('id', '=',$officeid)->first();
-           $dateCalculation=New DateCalculation ;
-           $workingdays=$dateCalculation->workingKays($date1 ,$date2 );
-           $countofhollidays=Holiday::where('office_id','=',$selectedoffice->id)->whereDate('date', '>=', $date1)
-               ->whereDate('date', '<=', $date2)->get()->count();
-           $workingdays=$workingdays-$countofhollidays;
-
-
-          return view ('newleads.kpiindicatorbyemployees', compact('offices' , 'selectedoffice' , 'date1' , 'date2' ,'workingdays'));
-
-
-
-    }
-
-
-    public function  resultbyEmployeesBydates (Request $request)
+    public function resultbyEmployeesBydates(Request $request)
 
     {
         $date1 = $request->input('selecteddate1');
         $date2 = $request->input('selecteddate2');
-        $officeid=$request->input('officeid');
-              $selectedoffice=Office::where('id', '=',$officeid)->first();
-        $dateCalculation=New DateCalculation ;
-        $workingdays=$dateCalculation->workingKays($date1 ,$date2 );
-        $countofhollidays=Holiday::where('office_id','=',$selectedoffice->id)->whereDate('date', '>=', $date1)
+        $officeid = $request->input('officeid');
+        $selectedoffice = Office::where('id', '=', $officeid)->first();
+        $dateCalculation = New DateCalculation;
+        $workingdays = $dateCalculation->workingKays($date1, $date2);
+        $countofhollidays = Holiday::where('office_id', '=', $selectedoffice->id)->whereDate('date', '>=', $date1)
             ->whereDate('date', '<=', $date2)->get()->count();
-        $workingdays=$workingdays-$countofhollidays;
+        $workingdays = $workingdays - $countofhollidays;
 
-       return view ('newleads.kpiindicatorresultbyemployee', compact( 'selectedoffice' , 'date1' , 'date2' ,'workingdays'));
-
+        return view('newleads.kpiindicatorresultbyemployee', compact('selectedoffice', 'date1', 'date2', 'workingdays'));
 
 
     }

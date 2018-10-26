@@ -78,11 +78,11 @@
 
 
                 <li>
-                    <a href="">New Contacts by Offices between 2 dates</a>
+                    <a href="{{route('contact.byofficebtw2dates')}}">New Contacts by Offices between 2 dates</a>
                 </li>
-               
+
                 <li>
-                    <a href="">Contacts Events Between 2 dates</a>
+                    <a href="{{route('contactEvents.list.btwdates.offices')}}">Contacts Events Between 2 dates</a>
                 </li>
 
 
@@ -91,7 +91,7 @@
                 </li>
 
                 <li>
-                    <a href=""><i class="fas fa-search"></i> Contacts Search</a>
+                    <a href="{{route('contacts.search')}}"><i class="fas fa-search"></i> Contacts Search</a>
                 </li>
             </ul>
         </li>

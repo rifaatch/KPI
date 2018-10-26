@@ -1,21 +1,11 @@
 @extends('layouts.app')
 
 @section('header_styles')
-<style>
-    .cell {
-        border-top: solid 1px;
-        border-bottom: solid 1px;
-        border-left: solid 1px;
-        border-right: solid 1px;
-        border-color:#dfdfdf!important;
-    }
 
-
-</style>
 @endsection
 
 @section('content')
-    @php ( $employee_id= $selectedEmployee->id )
+    @php ( $office_id= $selectedOffice->id )
     <div class="container h-100">
 
         <div class="row h-100 justify-content-center">
@@ -30,39 +20,32 @@
                             </div>
                         @endif
                             <div class="row" >
-                                <div class="col-12">
-                                    <h2 class="d-flex justify-content-center">
-                                        List of Events between 2 dates done by :
-                                    </h2></div>
+                                <div class="col-12"><h2 class="d-flex justify-content-center">List of Contact Events between  2 dates  done at office :</h2></div>
                             </div>
                         <div class=" form-group">
-                           <div class=" row form-group " >
-                                <label for="employee_id" class="col-md-2 control-label"  style="padding: 5px 5px 5px 5px!important; "
-                                      > <span  class="float-right-lg float-right-xl"> Employee name :</span></label>
-                                <div class="col-md-4"  style="padding: 5px 5px 5px 5px!important; ">
-                                    <select class="form-control" id="employee_id" name="employee_id" required="true">
+                            <div class=" row form-group ">
+                                <label for="office_id" class="col-md-1 control-label"
+                                       style="padding-left: 0!important; ;padding-right: 0">Office name</label>
+                                <div class="col-md-7">
+                                    <select class="form-control" id="office_id" name="office_id" required="true">
                                         <option value="" style="display: none;"
-                                                {{ $employee_id == '' ? 'selected' : '' }} disabled selected>Enter Employee Name here...
+                                                {{ $office_id == '' ? 'selected' : '' }} disabled selected>Enter office
+                                            here...
                                         </option>
-                                        @foreach ( $employees as $key => $employee )
-                                            <option value="{{ $key }}" {{ $employee_id == $key ? 'selected' : '' }}>
-                                                {{ $employee }}
+                                        @foreach ($offices as $key => $office)
+                                            <option value="{{ $key }}" {{ $office_id == $key ? 'selected' : '' }}>
+                                                {{ $office }}
                                             </option>
                                         @endforeach
                                     </select>
 
-                                    {!! $errors->first('employee_id', '<p class="help-block">:message</p>') !!}
+                                    {!! $errors->first('office_id', '<p class="help-block">:message</p>') !!}
                                 </div>
-
-                            <div class="col-lg-3 col-sm-12 col-xs-12"  style="padding: 5px 5px 5px 5px!important; ">
-                                <input type="text" class="form-control" id="filterby" placeholder="Filter by action name ...">
-
-                            </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-1 col-sm-12 col-xs-12" style="padding-right: 0!important; ">
 
-                                    <label for="slecteddate1" class=" col-form-label"
+                                    <label for="slecteddate" class=" col-form-label"
                                            style="padding-right: 0!important; ">from
                                         date :</label>
                                 </div>
@@ -73,7 +56,7 @@
 
                                 <div class="col-lg-1 col-sm-12 col-xs-12" style="padding-right: 0!important; ">
 
-                                    <label for="slecteddate2" class=" col-form-label"
+                                    <label for="slecteddate" class=" col-form-label"
                                            style="padding-right: 0!important;">to
                                         date :</label>
                                 </div>
@@ -88,10 +71,10 @@
                                 </div>
                             </div>
                             <div id="htmdata">
-                                @if (  $selectedEmployee && $date1<>null && $date2 <> null )
+                                @if (  $selectedOffice && $date1<>null && $date2 <> null )
 
-
-                                    @include ('leadevents.listofevents' ,[ $leadevents ])
+                                   @php (  $employees=$selectedOffice->employee  )
+                                    @include ('contact_events.listofeventbyemployeesbydates' ,[$employees , $date1, $date2])
 
                                 @endif
                             </div>
@@ -112,9 +95,8 @@
             $("#getdata").click(function () {
                 selecteddate1 = $("#slecteddate1").val();
                 selecteddate2 = $("#slecteddate2").val();
-                employeeid = $("#employee_id").val();
-                filterby=$("#filterby").val();
-                searchurl = "{{route('listEvents.btwdates.employee.details')}}"
+                officeid = $("#office_id").val();
+                searchurl = "{{route('contactEvents.list.btwdates.employees')}}"
                 $.ajax({
                     type: "POST",
                     dataType: "html",
@@ -122,10 +104,9 @@
 
                     data: {
                         "_token": "{{ csrf_token() }}",
-                        "employeeid": employeeid,
+                        "officeid": officeid,
                         "selecteddate1": selecteddate1,
                         "selecteddate2": selecteddate2,
-                        "filterby":filterby,
 
                     },
                     success: function (response) {
