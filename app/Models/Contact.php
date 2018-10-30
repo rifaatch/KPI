@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
 {
-    
+
 
     /**
      * The database table used by the model.
@@ -16,10 +16,10 @@ class Contact extends Model
     protected $table = 'contacts';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -28,13 +28,13 @@ class Contact extends Model
      * @var array
      */
     protected $fillable = [
-                  'zoho_id',
-                  'status',
-                  'client_name',
-                  'description',
-                  'source',
-                  'employee_id'
-              ];
+        'zoho_id',
+        'status',
+        'client_name',
+        'description',
+        'source',
+        'employee_id'
+    ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -42,14 +42,13 @@ class Contact extends Model
      * @var array
      */
     protected $dates = [];
-    
+
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [];
-    
 
 
     /**
@@ -57,7 +56,7 @@ class Contact extends Model
      */
     public function employee()
     {
-        return $this->belongsTo('App\Models\Employee','employee_id','id');
+        return $this->belongsTo('App\Models\Employee', 'employee_id', 'id');
     }
 
     /**
@@ -65,10 +64,8 @@ class Contact extends Model
      */
     public function contactEvent()
     {
-        return $this->hasMany('App\Models\ContactEvent','contact_id','id');
+        return $this->hasMany('App\Models\ContactEvent', 'contact_id', 'id');
     }
-
-
 
 
 }

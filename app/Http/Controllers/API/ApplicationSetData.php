@@ -20,123 +20,111 @@ use Carbon\Carbon;
 class ApplicationSetData
 {
 
-    public function addData ()
+    public function addData()
     {
-        try
-        {
+        try {
 
-            $today = date ("Ymd");
+            $today = date("Ymd");
             $data = array();
-            $request = Request::capture ();
+            $request = Request::capture();
 
-            $data['applicationid'] = Input::get ('applicationid'); //it is Zoho applicationid id
-            $data['clientName'] = Input::get ('clientname'); // optional
-            $data['employId'] = Input::get ('employid');
-            $data['status'] = Input::get ('status');
-            $data['description']=Input::get('description'); //optional
-            $data['action'] = Input::get ('action');
-            $data['action_id'] = Input::get ('action_id');
-            $data['source'] = Input::get ('source');
-            $validator = $this->validation ($data);
-            if ( $validator->fails () ) {
+            $data['applicationid'] = Input::get('applicationid'); //it is Zoho application id
+            $data['clientName'] = Input::get('clientname'); // optional
+            $data['employId'] = Input::get('employid');
+            $data['status'] = Input::get('status');
+            $data['description'] = Input::get('description'); //optional
+            $data['action'] = Input::get('action');
+            $data['action_id'] = Input::get('action_id');
+            $data['source'] = Input::get('source');
+            $validator = $this->validation($data);
+            if ($validator->fails()) {
 
-                $messages = $validator->errors ()->first ();
+                $messages = $validator->errors()->first();
                 $responce = $this->renderErrorResponse($messages);
-                return json_encode ($responce);
-            }
-            else
-            {
-                $employee=$this->getEmployee( $data['employId']) ;
+                return json_encode($responce);
+            } else {
+                $employee = $this->getEmployee($data['employId']);
 
-                if (!$employee)
-                {
+                if (!$employee) {
                     $responce = $this->renderResponse("the  employee not exist", 101);
                     return json_encode($responce);
-                }
-                else
-                {
+                } else {
 
 
-                    $application=Application::where('zoho_id','=',$data['applicationid'])->first();
-                    if ( $application ) {
+                    $application = Application::where('zoho_id', '=', $data['applicationid'])->first();
+                    if ($application) {
                         // add a new aplication event and change the status of the application
                         // todo double check this part
-                        $application->updated_at=carbon::now()->toDateTimeString();
-                        $application->status=$data['status'];
+                        $application->updated_at = carbon::now()->toDateTimeString();
+                        $application->status = $data['status'];
                         $application->save();
 
 
-                        $applicationEvent=ApplicationEvent::where('action_id' , '=' ,$data['action_id'])->first();
-                        if ( !$applicationEvent  ) {
-                            $applicationEvent=ApplicationEvent::create([
+                        $applicationEvent = ApplicationEvent::where('action_id', '=', $data['action_id'])->first();
+                        if (!$applicationEvent) {
+                            $applicationEvent = ApplicationEvent::create([
 
                                 'application_id' => $application->id,
                                 'zoho_id' => $data['applicationid'],
                                 'employee_id' => $employee->id,
-                                'action_name'=>$data['action'],
-                                'action_id'=>$data['action_id'],
-                                'description'=>$data['description'],
-
+                                'action_name' => $data['action'],
+                                'action_id' => $data['action_id'],
+                                'description' => $data['description'],
 
 
                             ]);
 
+                        } else {
+                            $responce = $this->renderResponse("this Application event is already exist", 101);
+                            return json_encode($responce);
                         }
-                        else {
-                            $responce = $this->renderResponse ( "this Application event is already exist" ,101);
-                            return json_encode ($responce);
-                        }
-                    }
-                    else {
+                    } else {
 
                         // create a  new application
 
-                        $application = Application::create ([
+                        $application = Application::create([
                             'zoho_id' => $data['applicationid'],
                             'client_name' => $data['clientName'],
                             'description' => $data['description'],
                             'action' => $data['action'],
-                            'employee_id' =>$employee->id,
-                            'source'=> $data['source']
+                            'employee_id' => $employee->id,
+                            'source' => $data['source']
                         ]);
 
-                        $applicationEvent=ApplicationEvent::create([
+                        $applicationEvent = ApplicationEvent::create([
 
                             'application_id' => $application->id,
                             'zoho_id' => $data['applicationid'],
                             'employee_id' => $employee->id,
-                            'action_name'=>$data['action'],
-                            'action_id'=>$data['action_id'],
+                            'action_name' => $data['action'],
+                            'action_id' => $data['action_id'],
                             'description' => $data['description'],
-                            'updated_at'=>carbon::now()->toDateTimeString()  // todo check the date when we go live .
+                            'updated_at' => carbon::now()->toDateTimeString()  // todo check the date when we go live .
                         ]);
                     }
 
                 }
-                $responce = $this->renderResponse ( "Successfully added/updated" ,1);
-                return json_encode ($responce);
+                $responce = $this->renderResponse("Successfully added/updated", 1);
+                return json_encode($responce);
 
             }
-        }
-
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
 
 
         }
     }
 
 
-    protected function  getEmployee ($employeeZohoId)
+    protected function getEmployee($employeeZohoId)
     {
-        $employee=Employee::where('zoho_id', '=',$employeeZohoId)->first();
+        $employee = Employee::where('zoho_id', '=', $employeeZohoId)->first();
         return $employee;
 
     }
 
-    protected function validation (array $data)
+    protected function validation(array $data)
     {
-        return Validator::make (
+        return Validator::make(
             $data,
             [
                 'applicationid' => 'required|numeric',
@@ -148,14 +136,14 @@ class ApplicationSetData
                 'source' => 'nullable|string',
                 'action_id' => 'required|numeric'
 
-            ], $this->messagevalidation ()
+            ], $this->messagevalidation()
         );
 
 
     }
 
 
-    private function messagevalidation ()
+    private function messagevalidation()
     {
 
         return $messages = array(
@@ -182,20 +170,20 @@ class ApplicationSetData
     private function renderErrorResponse($message)
 
     {
-        $data=array();
-        $errorid=substr($message, 0, 3);
+        $data = array();
+        $errorid = substr($message, 0, 3);
         //   dd($errorid);
-        $errortext=substr($message, 4);
-        $response=array();
-        $response['status']=$errorid;
-        $response['message']=$errortext;
+        $errortext = substr($message, 4);
+        $response = array();
+        $response['status'] = $errorid;
+        $response['message'] = $errortext;
         //  $response['data']=$data;
         return $response;
 
 
     }
 
-    private function renderResponse ( $message , $code)
+    private function renderResponse($message, $code)
 
     {
         $response = array();

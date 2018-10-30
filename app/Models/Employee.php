@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
-    
+
     /**
      * Indicates if the model should be timestamped.
      *
@@ -21,10 +21,10 @@ class Employee extends Model
     protected $table = 'employees';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -33,11 +33,11 @@ class Employee extends Model
      * @var array
      */
     protected $fillable = [
-                  'name',
-                  'zoho_id',
-                  'office_id',
-                  'created_at'
-              ];
+        'name',
+        'zoho_id',
+        'office_id',
+        'created_at'
+    ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -45,14 +45,13 @@ class Employee extends Model
      * @var array
      */
     protected $dates = [];
-    
+
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [];
-    
 
 
     /**
@@ -60,7 +59,7 @@ class Employee extends Model
      */
     public function office()
     {
-        return $this->belongsTo('App\Models\Office','office_id','id');
+        return $this->belongsTo('App\Models\Office', 'office_id', 'id');
     }
 
     /**
@@ -68,7 +67,7 @@ class Employee extends Model
      */
     public function leadEvent()
     {
-        return $this-> hasMany('App\Models\LeadEvent','employee_id','id');
+        return $this->hasMany('App\Models\LeadEvent', 'employee_id', 'id');
     }
 
     /**
@@ -76,36 +75,34 @@ class Employee extends Model
      */
     public function leads()
     {
-        return $this->hasMany('App\Models\Lead','employee_id','id');
+        return $this->hasMany('App\Models\Lead', 'employee_id', 'id');
     }
 
     public function applications()
     {
-        return $this->hasMany('App\Models\Application','employee_id','id');
+        return $this->hasMany('App\Models\Application', 'employee_id', 'id');
     }
 
     public function applicationEvents()
     {
-        return $this->hasMany('App\Models\ApplicationEvent','employee_id','id');
+        return $this->hasMany('App\Models\ApplicationEvent', 'employee_id', 'id');
     }
 
     public function contacts()
     {
-        return $this->hasMany('App\Models\Contact','employee_id','id');
+        return $this->hasMany('App\Models\Contact', 'employee_id', 'id');
     }
 
     public function contactEvents()
     {
-        return $this->hasMany('App\Models\ContactEvent','employee_id','id');
+        return $this->hasMany('App\Models\ContactEvent', 'employee_id', 'id');
     }
 
-    public function kpiIndicator ()
+    public function kpiIndicator()
     {
         return $this->hasOne('App\Models\KpiIndicator');
 
     }
-
-
 
 
 }

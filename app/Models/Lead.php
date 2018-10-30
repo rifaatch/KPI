@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lead extends Model
 {
-    
+
 
     /**
      * The database table used by the model.
@@ -16,10 +16,10 @@ class Lead extends Model
     protected $table = 'leads';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -28,14 +28,14 @@ class Lead extends Model
      * @var array
      */
     protected $fillable = [
-                  'zoho_id',
-                  'status',
-                  'client_name',
-                  'description',
-                  'action',
-                  'employ_id',
-                  'employ_name'
-              ];
+        'zoho_id',
+        'status',
+        'client_name',
+        'description',
+        'action',
+        'employee_id',
+
+    ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -43,14 +43,13 @@ class Lead extends Model
      * @var array
      */
     protected $dates = [];
-    
+
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [];
-    
 
 
     /**
@@ -58,7 +57,7 @@ class Lead extends Model
      */
     public function employee()
     {
-        return $this->belongsTo('App\Models\Employee','employee_id','id');
+        return $this->belongsTo('App\Models\Employee', 'employee_id', 'id');
     }
 
     /**
@@ -66,8 +65,8 @@ class Lead extends Model
      */
     public function leadEvent()
     {
-        return $this->hasMany('App\Models\LeadEvent','lead_id','id');
+        return $this->hasMany('App\Models\LeadEvent', 'lead_id', 'id');
     }
 
 
-  }
+}

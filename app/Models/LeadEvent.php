@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class LeadEvent extends Model
 {
-    
+
     /**
      * Indicates if the model should be timestamped.
      *
@@ -21,10 +21,10 @@ class LeadEvent extends Model
     protected $table = 'lead_events';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -33,15 +33,15 @@ class LeadEvent extends Model
      * @var array
      */
     protected $fillable = [
-                  'lead_id',
-                  'zoho_id',
-                  'employee_id',
-                  'old_employee_id',
-                  'action_name',
-                  'action_id',
-                    'description'
+        'lead_id',
+        'zoho_id',  // it is the lead zoho id
+        'employee_id',
+        'old_employee_id',
+        'action_name',
+        'action_id',  // it is the action or event zoho id
+        'description'
 
-              ];
+    ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -49,22 +49,21 @@ class LeadEvent extends Model
      * @var array
      */
     protected $dates = [];
-    
+
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [];
-    
+
     /**
      * Get the lead for this model.
      */
     public function lead()
     {
-        return $this->belongsTo('App\Models\Lead','lead_id','id');
+        return $this->belongsTo('App\Models\Lead', 'lead_id', 'id');
     }
-
 
 
     /**
@@ -72,10 +71,8 @@ class LeadEvent extends Model
      */
     public function employee()
     {
-        return $this->belongsTo('App\Models\Employee','employee_id','id');
+        return $this->belongsTo('App\Models\Employee', 'employee_id', 'id');
     }
-
-
 
 
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ApplicationEvent extends Model
 {
-    
+
     /**
      * Indicates if the model should be timestamped.
      *
@@ -21,10 +21,10 @@ class ApplicationEvent extends Model
     protected $table = 'application_events';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -33,14 +33,14 @@ class ApplicationEvent extends Model
      * @var array
      */
     protected $fillable = [
-                  'zoho_id',
-                  'action_id',
-                  'application_id',
-                  'employee_id',
-                  'old_employee_id',
-                  'action_name',
-                  'description'
-              ];
+        'zoho_id', // it is the application zoho id
+        'action_id', // it is the event / action zoho id
+        'application_id',
+        'employee_id',
+        'old_employee_id',
+        'action_name',
+        'description'
+    ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -48,16 +48,13 @@ class ApplicationEvent extends Model
      * @var array
      */
     protected $dates = [];
-    
+
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [];
-    
-
-
 
 
     /**
@@ -65,7 +62,7 @@ class ApplicationEvent extends Model
      */
     public function application()
     {
-        return $this->belongsTo('App\Models\Application','application_id','id');
+        return $this->belongsTo('App\Models\Application', 'application_id', 'id');
     }
 
     /**
@@ -73,9 +70,8 @@ class ApplicationEvent extends Model
      */
     public function employee()
     {
-        return $this->belongsTo('App\Models\Employee','employee_id','id');
+        return $this->belongsTo('App\Models\Employee', 'employee_id', 'id');
     }
-
 
 
 }

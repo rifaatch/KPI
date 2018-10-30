@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Holiday extends Model
 {
-    
+
     /**
      * Indicates if the model should be timestamped.
      *
@@ -21,10 +21,10 @@ class Holiday extends Model
     protected $table = 'holidays';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -33,11 +33,11 @@ class Holiday extends Model
      * @var array
      */
     protected $fillable = [
-                  'name',
-                  'office_id',
-                  'date',
-                  'year'
-              ];
+        'name',
+        'office_id',
+        'date',
+        'year'
+    ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -45,22 +45,21 @@ class Holiday extends Model
      * @var array
      */
     protected $dates = [];
-    
+
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [];
-    
+
     /**
      * Get the office for this model.
      */
     public function office()
     {
-        return $this->belongsTo('App\Models\Office','office_id','id');
+        return $this->belongsTo('App\Models\Office', 'office_id', 'id');
     }
-
 
 
 }

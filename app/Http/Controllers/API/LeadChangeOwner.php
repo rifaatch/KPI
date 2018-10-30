@@ -23,27 +23,23 @@ class LeadChangeOwner extends Controller
 
     public function change()
     {
-        try
-        {
+        try {
             $data = array();
 
-            $data['leadid'] = Input::get ('leadid'); //it is Zoho lead id
-            $data['old_employee_id'] = Input::get ('old-employee-id');
-            $data['new_employee_id'] = Input::get ('new-employee-id');
-            $data['description']=Input::get('description'); //optional
-            $data['action'] = Input::get ('action');  // it should be change-employee
-            $data['action_id'] = Input::get ('action_id'); // zoho action id
+            $data['leadid'] = Input::get('leadid'); //it is Zoho lead id
+            $data['old_employee_id'] = Input::get('old-employee-id');
+            $data['new_employee_id'] = Input::get('new-employee-id');
+            $data['description'] = Input::get('description'); //optional
+            $data['action'] = Input::get('action');  // it should be change-employee
+            $data['action_id'] = Input::get('action_id'); // zoho action id
 
-            $validator = $this->validation ($data);
-            if ( $validator->fails () ) {
+            $validator = $this->validation($data);
+            if ($validator->fails()) {
 
-                $messages = $validator->errors ()->first ();
+                $messages = $validator->errors()->first();
                 $responce = $this->renderErrorResponse($messages);
-                return json_encode ($responce);
-            }
-
-
-            else {
+                return json_encode($responce);
+            } else {
                 $newEmployee = $this->getEmployee($data['new_employee_id']);
                 $oldEmployee = $this->getEmployee($data['old_employee_id']);
 
@@ -51,9 +47,7 @@ class LeadChangeOwner extends Controller
                     $responce = $this->renderResponse("the new employee not exist", 101);
                     return json_encode($responce);
 
-                } else
-
-                    {
+                } else {
 
                     if (!$oldEmployee) {
                         $responce = $this->renderResponse("the new employee not exist", 101);
@@ -62,18 +56,15 @@ class LeadChangeOwner extends Controller
                     } else {
 
 
-
                         $lead = Lead::where('zoho_id', '=', $data['leadid'])->first();
                         if ($lead) {
                             // change the owner id and in answer a new lead event .
 
-                            if ( $lead->employee_id <> $oldEmployee->id )
-                            {
+                            if ($lead->employee_id <> $oldEmployee->id) {
 
                                 $responce = $this->renderResponse("the old  employee not match with current employee", 101);
                                 return json_encode($responce);
-                            }
-                            else {
+                            } else {
 
 
                                 $leadEvent = LeadEvent::where('action_id', '=', $data['action_id'])->first();
@@ -82,7 +73,7 @@ class LeadChangeOwner extends Controller
 
                                         'lead_id' => $lead->id,
                                         'zoho_id' => $data['leadid'],
-                                        'employ_id' => $newEmployee->id,
+                                        'employee_id' => $newEmployee->id,
                                         'old_employee_id' => $oldEmployee->id,
                                         'action_name' => $data['action'],
                                         'action_id' => $data['action_id'],
@@ -94,14 +85,12 @@ class LeadChangeOwner extends Controller
                                     $lead->employee_id = $newEmployee->id;
                                     $lead->save();
 
-                                    $responce = $this->renderResponse ( "The lead Successfully updated" ,1);
-                                    return json_encode ($responce);
+                                    $responce = $this->renderResponse("The lead Successfully updated", 1);
+                                    return json_encode($responce);
+                                } else {
+                                    $responce = $this->renderResponse("this lead event is already exist", 101);
+                                    return json_encode($responce);
                                 }
-
-                            else {
-                                $responce = $this->renderResponse("this lead event is already exist", 101);
-                                return json_encode($responce);
-                            }
                             }
                         } else {
 
@@ -116,44 +105,39 @@ class LeadChangeOwner extends Controller
             }
 
 
-
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
 
 
         }
     }
 
-    protected function  getEmployee ($employeeZohoId)
+    protected function getEmployee($employeeZohoId)
     {
-        $employee=Employee::where('zoho_id', '=',$employeeZohoId)->first();
+        $employee = Employee::where('zoho_id', '=', $employeeZohoId)->first();
         return $employee;
 
     }
 
-    protected function validation (array $data)
+    protected function validation(array $data)
     {
-        return Validator::make (
+        return Validator::make(
             $data,
             [
                 'leadid' => 'required|numeric',
-                'old_employee_id'=>'required|exists:employees,zoho_id',
+                'old_employee_id' => 'required|exists:employees,zoho_id',
                 'new_employee_id' => 'required|exists:employees,zoho_id',
                 'description' => 'nullable|string',
                 'action' => 'required|in:change-employee',
                 'action_id' => 'required|numeric'
 
-            ], $this->messagevalidation ()
+            ], $this->messagevalidation()
         );
 
 
     }
 
 
-
-
-    private function messagevalidation ()
+    private function messagevalidation()
     {
 
         return $messages = array(
@@ -181,20 +165,20 @@ class LeadChangeOwner extends Controller
     private function renderErrorResponse($message)
 
     {
-        $data=array();
-        $errorid=substr($message, 0, 3);
+        $data = array();
+        $errorid = substr($message, 0, 3);
 
-        $errortext=substr($message, 4);
-        $response=array();
-        $response['status']=$errorid;
-        $response['message']=$errortext;
+        $errortext = substr($message, 4);
+        $response = array();
+        $response['status'] = $errorid;
+        $response['message'] = $errortext;
 
         return $response;
 
 
     }
 
-    private function renderResponse ( $message , $code)
+    private function renderResponse($message, $code)
 
     {
         $response = array();

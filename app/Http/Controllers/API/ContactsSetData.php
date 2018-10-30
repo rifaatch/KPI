@@ -22,123 +22,111 @@ class ContactsSetData
 {
 
 
-    public function addData ()
+    public function addData()
     {
-        try
-        {
+        try {
 
-            $today = date ("Ymd");
+            $today = date("Ymd");
             $data = array();
-            $request = Request::capture ();
+            $request = Request::capture();
 
-            $data['contactid'] = Input::get ('contactid'); //it is Zoho contacts  id
-            $data['clientName'] = Input::get ('clientname'); // optional
-            $data['employId'] = Input::get ('employid');
-            $data['status'] = Input::get ('status');
-            $data['description']=Input::get('description'); //optional
-            $data['action'] = Input::get ('action');
-            $data['action_id'] = Input::get ('action_id');
-            $data['source'] = Input::get ('source');
-            $validator = $this->validation ($data);
-            if ( $validator->fails () ) {
+            $data['contactid'] = Input::get('contactid'); //it is Zoho contacts  id
+            $data['clientName'] = Input::get('clientname'); // optional
+            $data['employId'] = Input::get('employid');
+            $data['status'] = Input::get('status');
+            $data['description'] = Input::get('description'); //optional
+            $data['action'] = Input::get('action');
+            $data['action_id'] = Input::get('action_id');
+            $data['source'] = Input::get('source');
+            $validator = $this->validation($data);
+            if ($validator->fails()) {
 
-                $messages = $validator->errors ()->first ();
+                $messages = $validator->errors()->first();
                 $responce = $this->renderErrorResponse($messages);
-                return json_encode ($responce);
-            }
-            else
-            {
-                $employee=$this->getEmployee( $data['employId']) ;
+                return json_encode($responce);
+            } else {
+                $employee = $this->getEmployee($data['employId']);
 
-                if (!$employee)
-                {
+                if (!$employee) {
                     $responce = $this->renderResponse("the  employee not exist", 101);
                     return json_encode($responce);
-                }
-                else
-                {
+                } else {
 
 
-                    $contact=Contact::where('zoho_id','=',$data['contactid'])->first();
-                    if ( $contact ) {
+                    $contact = Contact::where('zoho_id', '=', $data['contactid'])->first();
+                    if ($contact) {
                         // add a new aplication event and change the status of the contact
                         // todo double check this part
-                        $contact->updated_at=carbon::now()->toDateTimeString();
-                        $contact->status=$data['status'];
+                        $contact->updated_at = carbon::now()->toDateTimeString();
+                        $contact->status = $data['status'];
                         $contact->save();
 
 
-                        $contactEvent=ContactEvent::where('action_id' , '=' ,$data['action_id'])->first();
-                        if ( !$contactEvent  ) {
-                            $contactEvent=ContactEvent::create([
+                        $contactEvent = ContactEvent::where('action_id', '=', $data['action_id'])->first();
+                        if (!$contactEvent) {
+                            $contactEvent = ContactEvent::create([
 
                                 'contact_id' => $contact->id,
                                 'zoho_id' => $data['contactid'],
                                 'employee_id' => $employee->id,
-                                'action_name'=>$data['action'],
-                                'action_id'=>$data['action_id'],
-                                'description'=>$data['description'],
-
+                                'action_name' => $data['action'],
+                                'action_id' => $data['action_id'],
+                                'description' => $data['description'],
 
 
                             ]);
 
+                        } else {
+                            $responce = $this->renderResponse("this Contact event is already exist", 101);
+                            return json_encode($responce);
                         }
-                        else {
-                            $responce = $this->renderResponse ( "this Contact event is already exist" ,101);
-                            return json_encode ($responce);
-                        }
-                    }
-                    else {
+                    } else {
 
                         // create a  new contact
 
-                        $contact = Contact::create ([
+                        $contact = Contact::create([
                             'zoho_id' => $data['contactid'],
                             'client_name' => $data['clientName'],
                             'description' => $data['description'],
                             'action' => $data['action'],
-                            'employee_id' =>$employee->id,
-                            'source'=> $data['source']
+                            'employee_id' => $employee->id,
+                            'source' => $data['source']
                         ]);
 
-                        $contactEvent=ContactEvent::create([
+                        $contactEvent = ContactEvent::create([
 
                             'contact_id' => $contact->id,
                             'zoho_id' => $data['contactid'],
                             'employee_id' => $employee->id,
-                            'action_name'=>$data['action'],
-                            'action_id'=>$data['action_id'],
+                            'action_name' => $data['action'],
+                            'action_id' => $data['action_id'],
                             'description' => $data['description'],
-                            'updated_at'=>carbon::now()->toDateTimeString()  // todo check the date when we go live .
+                            'updated_at' => carbon::now()->toDateTimeString()  // todo check the date when we go live .
                         ]);
                     }
 
                 }
-                $responce = $this->renderResponse ( "Successfully added/updated" ,1);
-                return json_encode ($responce);
+                $responce = $this->renderResponse("Successfully added/updated", 1);
+                return json_encode($responce);
 
             }
-        }
-
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
 
 
         }
     }
 
 
-    protected function  getEmployee ($employeeZohoId)
+    protected function getEmployee($employeeZohoId)
     {
-        $employee=Employee::where('zoho_id', '=',$employeeZohoId)->first();
+        $employee = Employee::where('zoho_id', '=', $employeeZohoId)->first();
         return $employee;
 
     }
 
-    protected function validation (array $data)
+    protected function validation(array $data)
     {
-        return Validator::make (
+        return Validator::make(
             $data,
             [
                 'contactid' => 'required|numeric',
@@ -150,14 +138,14 @@ class ContactsSetData
                 'source' => 'nullable|string',
                 'action_id' => 'required|numeric'
 
-            ], $this->messagevalidation ()
+            ], $this->messagevalidation()
         );
 
 
     }
 
 
-    private function messagevalidation ()
+    private function messagevalidation()
     {
 
         return $messages = array(
@@ -184,20 +172,20 @@ class ContactsSetData
     private function renderErrorResponse($message)
 
     {
-        $data=array();
-        $errorid=substr($message, 0, 3);
+        $data = array();
+        $errorid = substr($message, 0, 3);
         //   dd($errorid);
-        $errortext=substr($message, 4);
-        $response=array();
-        $response['status']=$errorid;
-        $response['message']=$errortext;
+        $errortext = substr($message, 4);
+        $response = array();
+        $response['status'] = $errorid;
+        $response['message'] = $errortext;
         //  $response['data']=$data;
         return $response;
 
 
     }
 
-    private function renderResponse ( $message , $code)
+    private function renderResponse($message, $code)
 
     {
         $response = array();

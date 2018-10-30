@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class KpiIndicator extends Model
 {
-    
+
     /**
      * Indicates if the model should be timestamped.
      *
@@ -21,10 +21,10 @@ class KpiIndicator extends Model
     protected $table = 'kpi_indicators';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -33,16 +33,16 @@ class KpiIndicator extends Model
      * @var array
      */
     protected $fillable = [
-                  'employee_id',
-                  'action',
-                  'newlead',
-                   'new_applications',
-                   'application_events',
-                   'new_contacts',
-                   'contact_events'
+        'employee_id',
+        'action',
+        'newlead',
+        'new_applications',
+        'application_events',
+        'new_contacts',
+        'contact_events'
 
 
-              ];
+    ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -50,27 +50,27 @@ class KpiIndicator extends Model
      * @var array
      */
     protected $dates = [];
-    
+
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [];
-    
+
     /**
      * Get the employee for this model.
      */
     public function employee()
     {
-        return $this->belongsTo('App\Models\Employee','employee_id','id');
+        return $this->belongsTo('App\Models\Employee', 'employee_id', 'id');
     }
 
 
     /**
      * Get created_at in array format
      *
-     * @param  string  $value
+     * @param  string $value
      * @return array
      */
 

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Office extends Model
 {
-    
+
     /**
      * Indicates if the model should be timestamped.
      *
@@ -21,10 +21,10 @@ class Office extends Model
     protected $table = 'offices';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -33,8 +33,8 @@ class Office extends Model
      * @var array
      */
     protected $fillable = [
-                  'office_name'
-              ];
+        'office_name'
+    ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -42,20 +42,20 @@ class Office extends Model
      * @var array
      */
     protected $dates = [];
-    
+
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [];
-    
+
     /**
      * Get the employee for this model.
      */
     public function employee()
     {
-        return $this->hasMany('App\Models\Employee','office_id','id');
+        return $this->hasMany('App\Models\Employee', 'office_id', 'id');
     }
 
     public function leads()
@@ -66,14 +66,14 @@ class Office extends Model
 
 
 // this event for leads .
-    public function  events ()
+    public function events()
     {
 
         return $this->hasManyThrough('App\Models\LeadEvent', 'App\Models\Employee');
 
     }
 
-    public function applications ()
+    public function applications()
     {
         return $this->hasManyThrough('App\Models\Application', 'App\Models\Employee');
 
@@ -84,24 +84,22 @@ class Office extends Model
         return $this->hasManyThrough('App\Models\ApplicationEvent', 'App\Models\Employee');
     }
 
-    public function contacts ()
+    public function contacts()
     {
         return $this->hasManyThrough('App\Models\Contact', 'App\Models\Employee');
     }
 
-    public function contactsEvents ()
+    public function contactsEvents()
     {
         return $this->hasManyThrough('App\Models\ContactEvent', 'App\Models\Employee');
     }
 
-    public function kpiIndicators ()
+    public function kpiIndicators()
     {
 
         return $this->hasManyThrough('App\Models\KpiIndicator', 'App\Models\Employee');
 
     }
-
-
 
 
 }

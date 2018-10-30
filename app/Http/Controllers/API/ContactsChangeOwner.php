@@ -19,33 +19,27 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 
-
-
 class ContactsChangeOwner
 {
     public function change()
     {
-        try
-        {
+        try {
             $data = array();
 
-            $data['contactid'] = Input::get ('contactid'); //it is Zoho contact id
-            $data['old_employee_id'] = Input::get ('old-employee-id');
-            $data['new_employee_id'] = Input::get ('new-employee-id');
-            $data['description']=Input::get('description'); //optional
-            $data['action'] = Input::get ('action');  // it should be change-employee
-            $data['action_id'] = Input::get ('action_id'); // zoho action id
+            $data['contactid'] = Input::get('contactid'); //it is Zoho contact id
+            $data['old_employee_id'] = Input::get('old-employee-id');
+            $data['new_employee_id'] = Input::get('new-employee-id');
+            $data['description'] = Input::get('description'); //optional
+            $data['action'] = Input::get('action');  // it should be change-employee
+            $data['action_id'] = Input::get('action_id'); // zoho action id
 
-            $validator = $this->validation ($data);
-            if ( $validator->fails () ) {
+            $validator = $this->validation($data);
+            if ($validator->fails()) {
 
-                $messages = $validator->errors ()->first ();
+                $messages = $validator->errors()->first();
                 $responce = $this->renderErrorResponse($messages);
-                return json_encode ($responce);
-            }
-
-
-            else {
+                return json_encode($responce);
+            } else {
                 $newEmployee = $this->getEmployee($data['new_employee_id']);
                 $oldEmployee = $this->getEmployee($data['old_employee_id']);
 
@@ -53,9 +47,7 @@ class ContactsChangeOwner
                     $responce = $this->renderResponse("the new employee not exist", 101);
                     return json_encode($responce);
 
-                } else
-
-                {
+                } else {
 
                     if (!$oldEmployee) {
                         $responce = $this->renderResponse("the new employee not exist", 101);
@@ -64,18 +56,15 @@ class ContactsChangeOwner
                     } else {
 
 
-
                         $contact = Contact::where('zoho_id', '=', $data['contactid'])->first();
                         if ($contact) {
                             // change the owner id and in answer a new applicationid event .
 
-                            if ( $contact->employee_id <> $oldEmployee->id )
-                            {
+                            if ($contact->employee_id <> $oldEmployee->id) {
 
                                 $responce = $this->renderResponse("the old  employee not match with current employee", 101);
                                 return json_encode($responce);
-                            }
-                            else {
+                            } else {
 
 
                                 $contactEvent = ContactEvent::where('action_id', '=', $data['action_id'])->first();
@@ -96,11 +85,9 @@ class ContactsChangeOwner
                                     $contact->employee_id = $newEmployee->id;
                                     $contact->save();
 
-                                    $responce = $this->renderResponse ( "The contact Successfully updated" ,1);
-                                    return json_encode ($responce);
-                                }
-
-                                else {
+                                    $responce = $this->renderResponse("The contact Successfully updated", 1);
+                                    return json_encode($responce);
+                                } else {
                                     $responce = $this->renderResponse("this contact event is already exist", 101);
                                     return json_encode($responce);
                                 }
@@ -118,44 +105,39 @@ class ContactsChangeOwner
             }
 
 
-
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
 
 
         }
     }
 
-    protected function  getEmployee ($employeeZohoId)
+    protected function getEmployee($employeeZohoId)
     {
-        $employee=Employee::where('zoho_id', '=',$employeeZohoId)->first();
+        $employee = Employee::where('zoho_id', '=', $employeeZohoId)->first();
         return $employee;
 
     }
 
-    protected function validation (array $data)
+    protected function validation(array $data)
     {
-        return Validator::make (
+        return Validator::make(
             $data,
             [
                 'contactid' => 'required|numeric',
-                'old_employee_id'=>'required|exists:employees,zoho_id',
+                'old_employee_id' => 'required|exists:employees,zoho_id',
                 'new_employee_id' => 'required|exists:employees,zoho_id',
                 'description' => 'nullable|string',
                 'action' => 'required|in:change-employee',
                 'action_id' => 'required|numeric'
 
-            ], $this->messagevalidation ()
+            ], $this->messagevalidation()
         );
 
 
     }
 
 
-
-
-    private function messagevalidation ()
+    private function messagevalidation()
     {
 
         return $messages = array(
@@ -183,20 +165,20 @@ class ContactsChangeOwner
     private function renderErrorResponse($message)
 
     {
-        $data=array();
-        $errorid=substr($message, 0, 3);
+        $data = array();
+        $errorid = substr($message, 0, 3);
 
-        $errortext=substr($message, 4);
-        $response=array();
-        $response['status']=$errorid;
-        $response['message']=$errortext;
+        $errortext = substr($message, 4);
+        $response = array();
+        $response['status'] = $errorid;
+        $response['message'] = $errortext;
 
         return $response;
 
 
     }
 
-    private function renderResponse ( $message , $code)
+    private function renderResponse($message, $code)
 
     {
         $response = array();

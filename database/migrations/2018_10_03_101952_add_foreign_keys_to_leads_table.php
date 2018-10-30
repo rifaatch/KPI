@@ -14,7 +14,7 @@ class AddForeignKeysToLeadsTable extends Migration {
 	{
 		Schema::table('leads', function(Blueprint $table)
 		{
-			$table->foreign('employ_id', 'leads_ibfk_1')->references('id')->on('employees')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('employee_id', 'leads_ibfk_1')->references('id')->on('employees')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 

@@ -19,9 +19,10 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                            <div class="row" >
-                                <div class="col-12"><h2 class="d-flex justify-content-center">List of Application Events between  2 dates  done at office :</h2></div>
-                            </div>
+                        <div class="row">
+                            <div class="col-12"><h2 class="d-flex justify-content-center">List of Application Events
+                                    between 2 dates done at office :</h2></div>
+                        </div>
                         <div class=" form-group">
                             <div class=" row form-group ">
                                 <label for="office_id" class="col-md-1 control-label"
@@ -73,7 +74,7 @@
                             <div id="htmdata">
                                 @if (  $selectedOffice && $date1<>null && $date2 <> null )
 
-                                   @php (  $employees=$selectedOffice->employee  )
+                                    @php (  $employees=$selectedOffice->employee  )
                                     @include ('application_events.listofeventbyemployeesbydates' ,[$employees , $date1, $date2])
 
                                 @endif
