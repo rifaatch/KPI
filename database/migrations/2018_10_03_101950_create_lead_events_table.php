@@ -15,7 +15,7 @@ class CreateLeadEventsTable extends Migration {
 		Schema::create('lead_events', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-		    $table->bigInteger('zoho_id');
+		    $table->bigInteger('lead_id');
             $table->bigInteger('action_id'); //this id is comming also fro zoho
 
 			$table->integer('employ_id')->index('employ_id');

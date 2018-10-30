@@ -17,7 +17,7 @@ class CreateApplicationEventsTable extends Migration {
 			$table->integer('id', true);
 			$table->bigInteger('zoho_id');
 			$table->bigInteger('action_id');
-			$table->integer('application_id')->index('aplication_id');
+			$table->integer('application_id')->index('application_id');
 			$table->integer('employee_id')->index('employee_id');
 			$table->integer('old_employee_id')->nullable();
 			$table->string('action_name', 50);

@@ -33,7 +33,7 @@ class Lead extends Model
                   'client_name',
                   'description',
                   'action',
-                  'employee_id',
+                  'employ_id',
                   'employ_name'
               ];
 

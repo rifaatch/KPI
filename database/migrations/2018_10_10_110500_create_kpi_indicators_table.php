@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateKpiIndicatorTable extends Migration {
+class CreateKpiIndicatorsTable extends Migration {
 
 	/**
 	 * Run the migrations.

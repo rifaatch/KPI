@@ -15,7 +15,7 @@ class AddForeignKeysToApplicationEventsTable extends Migration {
 		Schema::table('application_events', function(Blueprint $table)
 		{
 			$table->foreign('employee_id', 'application_events_ibfk_1')->references('id')->on('employees')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('aplication_id', 'application_events_ibfk_2')->references('id')->on('applications')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+			$table->foreign('application_id', 'application_events_ibfk_2')->references('id')->on('applications')->onUpdate('RESTRICT')->onDelete('RESTRICT');
 		});
 	}
 

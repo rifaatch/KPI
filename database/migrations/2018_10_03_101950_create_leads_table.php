@@ -22,8 +22,7 @@ class CreateLeadsTable extends Migration {
 			$table->string('action', 100)->nullable();
             $table->string('source', 100)->nullable();
 
-
-			$table->integer('employee_id')->index('employ_id');
+			$table->integer('employ_id')->index('employ_id');
 		//	$table->string('employ_name', 100)->nullable();
 			$table->timestamps();
 		});
