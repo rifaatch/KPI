@@ -46,10 +46,10 @@
                             <span class="col-lg-3 col-md-6 col-sm-12 col-xs-12">{{$applicationEvent->created_at}}</span>
                         </div>
                         <div class="row  ">
-                            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 "><span
-                                        class="">Zoho id : &nbsp;</span> {{$applicationEvent->zoho_id}}</div>
+                            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 "><span
+                                        class="">Event Zoho id : &nbsp;</span> {{$applicationEvent->action_id}}</div>
 
-                            <div class="col-lg-3  col-sm-12 col-xs-12 "></div>
+                            <div class="col-lg-2  col-sm-12 col-xs-12 "></div>
                             <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12   ">
                                 <span class="">Action : &nbsp;</span> {{$applicationEvent->action_name}}
                             </div>

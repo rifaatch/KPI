@@ -8,6 +8,7 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Exception;
+use Dotenv\Exception\ValidationException;
 
 class EmployeesController extends Controller
 {
@@ -108,9 +109,9 @@ class EmployeesController extends Controller
      */
     public function update($id, Request $request)
     {
-        try {
+       try {
 
-            $data = $this->getData($request);
+            $data = $this->getData($request , $id);
 
             $employee = Employee::findOrFail($id);
             $employee->update($data);
@@ -118,11 +119,18 @@ class EmployeesController extends Controller
             return redirect()->route('employees.employee.index')
                 ->with('success_message', 'Employee was successfully updated!');
 
-        } catch (Exception $exception) {
+   } catch (Exception $exception) {
+
+           if ($exception instanceof ValidationException) {
+               return back()->withInput()
+                   ->withErrors(['unexpected_error' => $exception->errors()]);
+           }
+           else {
 
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request!']);
         }
+       }
     }
 
     /**
@@ -155,11 +163,11 @@ class EmployeesController extends Controller
      * @param Illuminate\Http\Request\Request $request
      * @return array
      */
-    protected function getData(Request $request)
+    protected function getData(Request $request , $employee_id =null )
     {
         $rules = [
             'name' => 'required|string|min:1|max:100',
-            'zoho_id' => 'required',
+            'zoho_id' => 'sometimes|required|unique:employees,zoho_id,'. $employee_id,
             'office_id' => 'required',
 
 

@@ -47,8 +47,8 @@
                             <span class="col-lg-3 col-sm-12 col-xs-12">{{$leadevent->created_at}}</span>
                         </div>
                         <div class="row  ">
-                            <div class="col-lg-3 col-sm-12 col-xs-12 "><span
-                                        class="">Zoho id : &nbsp;</span> {{$leadevent->zoho_id}}</div>
+                            <div class="col-lg-4 col-sm-12 col-xs-12 "><span
+                                        class="">Event Zoho id : &nbsp;</span> {{$leadevent->action_id}}</div>
 
                             <div class="col-lg-3 col-sm-12 col-xs-12 "></div>
                             <div class="col-lg-3 col-sm-12 col-xs-12   ">
