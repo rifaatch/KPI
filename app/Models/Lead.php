@@ -34,6 +34,9 @@ class Lead extends Model
         'description',
         'action',
         'employee_id',
+        'counselor_id',
+        'admission_id',
+        'source_details',
 
     ];
 
@@ -66,6 +69,17 @@ class Lead extends Model
     public function leadEvent()
     {
         return $this->hasMany('App\Models\LeadEvent', 'lead_id', 'id');
+    }
+
+
+    public function counsulor()
+    {
+        return $this->belongsTo('App\Models\Counselor', 'counselor_id', 'id')->withDefault();
+    }
+
+    public function admission()
+    {
+        return $this->belongsTo('App\Models\Admission', 'admission_id', 'id')->withDefault();
     }
 
 

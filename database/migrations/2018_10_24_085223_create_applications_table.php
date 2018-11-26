@@ -22,6 +22,12 @@ class CreateApplicationsTable extends Migration {
 			$table->string('action', 100);
 			$table->string('source', 100)->nullable();
 			$table->integer('employee_id')->index('employee_id');
+
+            $table->integer('counselor_id')->nullable()->index('counselor_id');
+            $table->integer('admission_id')->nullable()->index('admission_id');
+
+
+
 			$table->timestamps();
 		});
 	}

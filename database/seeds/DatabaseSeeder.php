@@ -15,7 +15,10 @@ class DatabaseSeeder extends Seeder
             UserTableSeeder::class,
             OfficesTableSeeder::class,
             EmployeesTableSeeder::class,
-            KpiIndicatorsTableSeeder::class
+            KpiIndicatorsTableSeeder::class,
+            AdmissionsTableSeeder::class,
+            CounselorsTableSeeder::class
+
         ]);
 
     }

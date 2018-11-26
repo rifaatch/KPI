@@ -19,6 +19,10 @@ class CreateApplicationEventsTable extends Migration
             $table->bigInteger('action_id');
             $table->integer('application_id')->index('application_id');
             $table->integer('employee_id')->index('employee_id');
+
+            $table->integer('counselor_id')->nullable()->index('counselor_id');
+            $table->integer('admission_id')->nullable()->index('admission_id');
+
             $table->integer('old_employee_id')->nullable();
             $table->string('action_name', 50);
             $table->text('description', 65535)->nullable();

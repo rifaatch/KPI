@@ -33,7 +33,10 @@ class Contact extends Model
         'client_name',
         'description',
         'source',
-        'employee_id'
+        'employee_id',
+        'counselor_id',
+        'admission_id',
+        'source_details',
     ];
 
     /**

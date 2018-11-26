@@ -13,9 +13,15 @@
 
             <div class="row  ">
                 <span class="col-lg-3 col-sm-12 col-xs-12">{{$lead->created_at}}</span>
-                <span class="col-lg-3 col-sm-12 col-xs-12"></span>
+                <span class="col-lg-3 col-sm-12 col-xs-12 " >  <span class="">Duration : &nbsp;</span>    {{duration( $lead->created_at )}}</span>
+                <span class="col-lg-3 col-sm-12 col-xs-12 " >  <span class="">Counsulor : &nbsp;</span>    {{$lead->counsulor->name}}</span>
+                <span class="col-lg-3 col-sm-12 col-xs-12"> <span class="">Admission: &nbsp;</span> {{$lead->admission->name}}</span>
+
+            </div>
+            <div class="row  ">
                 <span class="col-lg-3 col-sm-12 col-xs-12"> <span
                             class="">Source: &nbsp;</span> {{$lead->source}}</span>
+                <span class="col-lg-9 col-sm-12 col-xs-12"> <span class="">Source details: &nbsp;</span> {{$lead->source_details}}</span>
             </div>
             <div class="row  ">
                 <div class="col-lg-3 col-sm-12 col-xs-12 "><span class="">Zoho id : &nbsp;</span> {{$lead->zoho_id}}

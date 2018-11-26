@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admission;
+use App\Models\Counselor;
 use Carbon\Carbon;
 use App\Models\Office;
 use App\Models\Employee;
@@ -148,10 +150,42 @@ class ApplicationsController extends Controller
             ->orWhere('description', 'like', '%' . $searchText . '%')
             ->paginate(25);
 
-
         return view('applications.applications', compact('applications'));
 
 
     }
 
+
+    public  function filter ()
+
+    {
+        $currentDate = Carbon::now();
+        $selectedDate = $currentDate->toDateString();
+        $statusList=['active','nactive','closed','cancelled','creation'];
+       // dd($statusList);
+        $admissions=Admission::all();
+        $counsulors=Counselor::all();
+        return view('applications.filter', compact('selectedDate' ,'statusList' ,'admissions' ,'counsulors'));
+
+    }
+
+    public function runFilteration (Request $request)
+    {
+
+        $selectedStatus = $request->input('selectedStatus');
+        $selectedAdmission = $request->input('selectedAdmission');
+        $selectedcounsulor = $request->input('selectedcounsulor');
+
+        $applications = Application::where('status', '=',  $selectedStatus);
+
+       if ($selectedAdmission <> 0) $applications=$applications->where('admission_id' ,'=' ,$selectedAdmission);
+       if ($selectedcounsulor <> 0) $applications=$applications->where('counselor_id' ,'=' ,$selectedcounsulor);
+        $applications=$applications->orderBy('created_at')->paginate(25);
+
+        return view('applications.applications', compact('applications'));
+
+
+    }
 }
+
+

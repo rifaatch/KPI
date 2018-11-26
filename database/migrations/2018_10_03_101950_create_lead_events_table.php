@@ -20,6 +20,10 @@ class CreateLeadEventsTable extends Migration {
             $table->bigInteger('action_id');
 
 			$table->integer('employee_id')->index('employee_id');
+
+            $table->integer('counselor_id')->nullable()->index('counselor_id');
+            $table->integer('admission_id')->nullable()->index('admission_id');
+
 			$table->integer('old_employee_id')->nullable()->index('old_employee_id');
 			$table->string('action_name', 50);
 			$table->text('description')->nullable();

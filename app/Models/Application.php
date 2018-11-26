@@ -34,7 +34,10 @@ class Application extends Model
         'description',
         'action',
         'source',
-        'employee_id'
+        'employee_id',
+        'source_details',
+        'counselor_id',
+        'admission_id'
     ];
 
     /**
@@ -67,6 +70,17 @@ class Application extends Model
     {
         return $this->hasMany('App\Models\ApplicationEvent', 'aplication_id', 'id');
     }
+
+    public function counsulor()
+    {
+        return $this->belongsTo('App\Models\Counselor', 'counselor_id', 'id')->withDefault();
+    }
+
+    public function admission()
+    {
+        return $this->belongsTo('App\Models\Admission', 'admission_id', 'id')->withDefault();
+    }
+
 
 
 }

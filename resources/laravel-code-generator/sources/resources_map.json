@@ -43,5 +43,15 @@
         "model-name": "ContactEvent",
         "resource-file": "contact_events.json",
         "table-name": "contact_events"
+    },
+    {
+        "model-name": "Counselor",
+        "resource-file": "counselors.json",
+        "table-name": "counselors"
+    },
+    {
+        "model-name": "Admissions",
+        "resource-file": "admissions.json",
+        "table-name": "admissions"
     }
 ]

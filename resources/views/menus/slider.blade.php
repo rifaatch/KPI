@@ -56,6 +56,10 @@
                     <a href="{{route('appEvents.list.btwdates.offices')}}">Application Events Between 2 dates</a>
                 </li>
 
+                <li>
+                    <a href="{{route('applications.filter')}}">Application Filter</a>
+                </li>
+
 
                 <li>
                     <a href="{{route('kpi_indicators.leads.btw2dates')}}"> KPI indicator Between 2 dates</a>
@@ -104,6 +108,14 @@
                 </li>
                 <li>
                     <a href="{{route('offices.office.index')}}">Offices</a>
+                </li>
+
+                <li>
+                    <a href="{{route('counselors.counselor.index')}}">Counselors</a>
+                </li>
+
+                <li>
+                    <a href="{{route('admissions.admissions.index')}}">Admissions</a>
                 </li>
                 <li>
                     <a href="{{route('kpi_indicators.kpi_indicator.index')}}">KPI Indicator</a>

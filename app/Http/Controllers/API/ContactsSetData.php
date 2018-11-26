@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Employee;
 use Carbon\Carbon;
+use App\Models\Counselor;
+use App\Models\Admission;
 
 
 class ContactsSetData
@@ -33,11 +35,14 @@ class ContactsSetData
             $data['contactid'] = Input::get('contactid'); //it is Zoho contacts  id
             $data['clientName'] = Input::get('clientname'); // optional
             $data['employId'] = Input::get('employid');
+            $data['counselor_id'] = Input::get('counselorid'); //optional it an id from zoho
+            $data['admission_id'] = Input::get('admissionid'); //optional it an id from zoho
             $data['status'] = Input::get('status');
             $data['description'] = Input::get('description'); //optional
             $data['action'] = Input::get('action');
             $data['action_id'] = Input::get('action_id');
             $data['source'] = Input::get('source');
+            $data['source_details'] = Input::get('sourcedetails');//optional
             $validator = $this->validation($data);
             if ($validator->fails()) {
 
@@ -46,11 +51,26 @@ class ContactsSetData
                 return json_encode($responce);
             } else {
                 $employee = $this->getEmployee($data['employId']);
+                $consullore =$this->getCounselor($data['counselor_id']);
+                $addmission=$this->getAdmission($data['admission_id']);
 
                 if (!$employee) {
                     $responce = $this->renderResponse("the  employee not exist", 101);
                     return json_encode($responce);
-                } else {
+                }
+                else if ( !$consullore  )
+                {
+                    $responce = $this->renderResponse("the  consullore not exist", 101);
+                    return json_encode($responce);
+                }
+                else if ( !$addmission )
+                {
+                    $responce = $this->renderResponse("the  addmission not exist", 101);
+                    return json_encode($responce);
+
+                }
+
+                else {
 
 
                     $contact = Contact::where('zoho_id', '=', $data['contactid'])->first();
@@ -69,7 +89,10 @@ class ContactsSetData
                                 'contact_id' => $contact->id,
                                 'zoho_id' => $data['contactid'],
                                 'employee_id' => $employee->id,
+                                'counselor_id' => $consullore->id,
+                                'admission_id' => $addmission->id,
                                 'action_name' => $data['action'],
+                                'status' => $data['status'],
                                 'action_id' => $data['action_id'],
                                 'description' => $data['description'],
 
@@ -89,7 +112,11 @@ class ContactsSetData
                             'client_name' => $data['clientName'],
                             'description' => $data['description'],
                             'action' => $data['action'],
+                            'status' => $data['status'],
                             'employee_id' => $employee->id,
+                            'counselor_id' => $consullore->id,
+                            'admission_id' => $addmission->id,
+                            'source_details' => $data['source_details'],
                             'source' => $data['source']
                         ]);
 
@@ -98,7 +125,10 @@ class ContactsSetData
                             'contact_id' => $contact->id,
                             'zoho_id' => $data['contactid'],
                             'employee_id' => $employee->id,
+                            'counselor_id' => $consullore->id,
+                            'admission_id' => $addmission->id,
                             'action_name' => $data['action'],
+                            'status' => $data['status'],
                             'action_id' => $data['action_id'],
                             'description' => $data['description'],
                             'updated_at' => carbon::now()->toDateTimeString()  // todo check the date when we go live .
@@ -124,6 +154,21 @@ class ContactsSetData
 
     }
 
+
+    protected function getCounselor($counselorZohoId)
+    {
+        $counselor = Counselor::where('zoho_id', '=', $counselorZohoId)->first();
+        return $counselor;
+
+    }
+
+    protected function getAdmission($admissionZohoId)
+    {
+        $admission = Admission::where('zoho_id', '=', $admissionZohoId)->first();
+        return $admission;
+
+    }
+
     protected function validation(array $data)
     {
         return Validator::make(
@@ -136,13 +181,17 @@ class ContactsSetData
                 'description' => 'nullable|string',
                 'action' => 'required|string',
                 'source' => 'nullable|string',
-                'action_id' => 'required|numeric'
+                'action_id' => 'required|numeric',
+                'counselor_id'=>'nullable|numeric',
+                'admission_id'=>'nullable|numeric',
+                'source_details'=>'nullable|string',
 
             ], $this->messagevalidation()
         );
 
 
     }
+
 
 
     private function messagevalidation()

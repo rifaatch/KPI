@@ -18,12 +18,18 @@ class CreateLeadsTable extends Migration {
             $table->bigInteger('zoho_id');
 			$table->enum('status', array('active','nactive','closed','converted','cancelled','creation'))->nullable();
 			$table->string('client_name', 100)->nullable();
-			$table->string('description', 100)->nullable();
+            $table->text('description', 65535)->nullable();
 			$table->string('action', 100)->nullable();
-            $table->string('source', 100)->nullable();
+            $table->string('action', 100)->nullable();
+            $table->text('source_details')->nullable();
 
 			$table->integer('employee_id')->index('employee_id');
-		//	$table->string('employ_name', 100)->nullable();
+
+            $table->integer('counselor_id')->nullable()->index('counselor_id');
+            $table->integer('admission_id')->nullable()->index('admission_id');
+
+
+            //	$table->string('employ_name', 100)->nullable();
 			$table->timestamps();
 		});
 	}

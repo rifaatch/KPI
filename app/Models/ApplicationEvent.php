@@ -38,6 +38,8 @@ class ApplicationEvent extends Model
         'application_id',
         'employee_id',
         'old_employee_id',
+        'admission_id',
+        'counselor_id',
         'action_name',
         'description'
     ];

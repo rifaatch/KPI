@@ -282,13 +282,21 @@ Route::group(
     Route::post('/listofapplications/search/getdata','ApplicationsController@getSearchResult')
         ->name('applications.search.getdata');
 
+    Route::get('/filter','ApplicationsController@filter')
+        ->name('applications.filter');
+
+    Route::post('/filter/fire/','ApplicationsController@runFilteration')
+        ->name('applications.filter.run');
+
+
+
 
 
 });
 
 Route::group(
 [
-    'prefix' => 'application_events',
+    'prefix' => 'application-events',
 ], function () {
 
     Route::get('appevent/{app_id}', 'ApplicationEventsController@AppEvents')
@@ -374,5 +382,69 @@ Route::group(
         ->name('contactEvents.btwdates.employee.details.submit');
 
 
+
+});
+
+Route::group(
+[
+    'prefix' => 'counselors',
+], function () {
+
+    Route::get('/', 'CounselorsController@index')
+         ->name('counselors.counselor.index');
+
+    Route::get('/create','CounselorsController@create')
+         ->name('counselors.counselor.create');
+
+    Route::get('/show/{counselor}','CounselorsController@show')
+         ->name('counselors.counselor.show')
+         ->where('id', '[0-9]+');
+
+    Route::get('/{counselor}/edit','CounselorsController@edit')
+         ->name('counselors.counselor.edit')
+         ->where('id', '[0-9]+');
+
+    Route::post('/', 'CounselorsController@store')
+         ->name('counselors.counselor.store');
+               
+    Route::put('counselor/{counselor}', 'CounselorsController@update')
+         ->name('counselors.counselor.update')
+         ->where('id', '[0-9]+');
+
+    Route::delete('/counselor/{counselor}','CounselorsController@destroy')
+         ->name('counselors.counselor.destroy')
+         ->where('id', '[0-9]+');
+
+});
+
+Route::group(
+[
+    'prefix' => 'admissions',
+], function () {
+
+    Route::get('/', 'AdmissionsController@index')
+         ->name('admissions.admissions.index');
+
+    Route::get('/create','AdmissionsController@create')
+         ->name('admissions.admissions.create');
+
+    Route::get('/show/{admissions}','AdmissionsController@show')
+         ->name('admissions.admissions.show')
+         ->where('id', '[0-9]+');
+
+    Route::get('/{admissions}/edit','AdmissionsController@edit')
+         ->name('admissions.admissions.edit')
+         ->where('id', '[0-9]+');
+
+    Route::post('/', 'AdmissionController@store')
+         ->name('admissions.admissions.store');
+               
+    Route::put('admissions/{admissions}', 'AdmissionsController@update')
+         ->name('admissions.admissions.update')
+         ->where('id', '[0-9]+');
+
+    Route::delete('/admissions/{admissions}','AdmissionsController@destroy')
+         ->name('admissions.admissions.destroy')
+         ->where('id', '[0-9]+');
 
 });

@@ -22,10 +22,20 @@
             @if(!empty($successMsg))
                 <div class="alert alert-success"><h4> {{ $successMsg }} </h4></div>
             @endif
-            <h6 class="col-lg-6 col-md-6 col-sm-12 col-12"> Application Zoho id :{{$application->zoho_id}} </h6>
-            <h6 class="col-lg-6 col-md-6 col-sm-12 col-12"> Created at :{{$application->created_at}} </h6>
-            <h4 class="col-lg-6 col-md-6 col-sm-12 col-12 text-info"> Client:{{$application->client_name}} </h4>
-            <h4 class="col-lg-6 col-md-6 col-sm-12 col-12"> Employee:{{$application->employee->name}} </h4>
+            <h6 class="col-lg-4 col-md-6 col-sm-12 col-12"> Application Zoho id :{{$application->zoho_id}} </h6>
+            <h6 class="col-lg-4 col-md-6 col-sm-12 col-12"> Created at :{{$application->created_at}} </h6>
+            <h6 class="col-lg-4 col-md-6 col-sm-12 col-12"> Duration : {{ duration( $application->created_at ) }} </h6>
+
+            <h6 class="col-lg-4 col-md-6 col-sm-12 col-12"> Counsulor : {{$application->counsulor->name}} </h6>
+            <h6 class="col-lg-4 col-md-6 col-sm-12 col-12"> Admission  :{{$application->admission->name}} </h6>
+            <h6 class="col-lg-4 col-md-6 col-sm-12 col-12"> Employee:{{$application->employee->name}} </h6>
+
+            <h6 class="col-lg-4 col-md-6 col-sm-12 col-12"> Source  :{{$application->source}} </h6>
+            <h6 class="col-lg-8 col-md-6 col-sm-12 col-12"> Source details:{{$application->source_details}} </h6>
+
+                <h5 class="col-lg-12 col-md-12 col-sm-12 col-12 "> Status:{{$application->status}} </h5>
+                <h4 class="col-lg-12 col-md-12 col-sm-12 col-12 text-info"> Client:{{$application->client_name}} </h4>
+
 
             <h5 class="col-lg-12 col-sm-12 col-12" style="margin: 10px 0 15px 25px"> {{$application->description}} </h5>
 

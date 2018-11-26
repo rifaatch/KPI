@@ -9,8 +9,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admission;
 use App\Models\Application;
 use App\Models\ApplicationEvent;
+use App\Models\Counselor;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -31,11 +33,15 @@ class ApplicationSetData
             $data['applicationid'] = Input::get('applicationid'); //it is Zoho application id
             $data['clientName'] = Input::get('clientname'); // optional
             $data['employId'] = Input::get('employid');
+            $data['counselor_id'] = Input::get('counselorid'); //optional it an id from zoho
+            $data['admission_id'] = Input::get('admissionid'); //optional it an id from zoho
             $data['status'] = Input::get('status');
             $data['description'] = Input::get('description'); //optional
             $data['action'] = Input::get('action');
             $data['action_id'] = Input::get('action_id');
             $data['source'] = Input::get('source');
+            $data['source_details'] = Input::get('sourcedetails');//optional
+
             $validator = $this->validation($data);
             if ($validator->fails()) {
 
@@ -44,11 +50,27 @@ class ApplicationSetData
                 return json_encode($responce);
             } else {
                 $employee = $this->getEmployee($data['employId']);
-
+                $consullore =$this->getCounselor($data['counselor_id']);
+                $addmission=$this->getAdmission($data['admission_id']);
                 if (!$employee) {
                     $responce = $this->renderResponse("the  employee not exist", 101);
                     return json_encode($responce);
-                } else {
+                }
+                else if ( !$consullore  )
+                {
+                    $responce = $this->renderResponse("the  consullore not exist", 101);
+                    return json_encode($responce);
+                }
+                else if ( !$addmission )
+                {
+                    $responce = $this->renderResponse("the  addmission not exist", 101);
+                    return json_encode($responce);
+
+                }
+
+                    else {
+
+
 
 
                     $application = Application::where('zoho_id', '=', $data['applicationid'])->first();
@@ -67,8 +89,12 @@ class ApplicationSetData
                                 'application_id' => $application->id,
                                 'zoho_id' => $data['applicationid'],
                                 'employee_id' => $employee->id,
+                                'counselor_id' => $consullore->id,
+                                'admission_id' => $addmission->id,
                                 'action_name' => $data['action'],
+                                'status' => $data['status'],
                                 'action_id' => $data['action_id'],
+                              //  'source_details' => $data['source_details'],
                                 'description' => $data['description'],
 
 
@@ -86,6 +112,10 @@ class ApplicationSetData
                             'zoho_id' => $data['applicationid'],
                             'client_name' => $data['clientName'],
                             'description' => $data['description'],
+                            'counselor_id' => $consullore->id,
+                            'admission_id' => $addmission->id,
+                            'source_details' => $data['source_details'],
+                           'status' => $data['status'],
                             'action' => $data['action'],
                             'employee_id' => $employee->id,
                             'source' => $data['source']
@@ -97,8 +127,13 @@ class ApplicationSetData
                             'zoho_id' => $data['applicationid'],
                             'employee_id' => $employee->id,
                             'action_name' => $data['action'],
+                            'status' => $data['status'],
                             'action_id' => $data['action_id'],
+                            'counselor_id' => $consullore->id,
+                            'admission_id' => $addmission->id,
                             'description' => $data['description'],
+                            'source' => $data['source'],
+                            'source_details' => $data['source_details'],
                             'updated_at' => carbon::now()->toDateTimeString()  // todo check the date when we go live .
                         ]);
                     }
@@ -122,6 +157,20 @@ class ApplicationSetData
 
     }
 
+    protected function getCounselor($counselorZohoId)
+    {
+        $counselor = Counselor::where('zoho_id', '=', $counselorZohoId)->first();
+        return $counselor;
+
+    }
+
+    protected function getAdmission($admissionZohoId)
+    {
+        $admission = Admission::where('zoho_id', '=', $admissionZohoId)->first();
+        return $admission;
+
+    }
+
     protected function validation(array $data)
     {
         return Validator::make(
@@ -134,7 +183,10 @@ class ApplicationSetData
                 'description' => 'nullable|string',
                 'action' => 'required|string',
                 'source' => 'nullable|string',
-                'action_id' => 'required|numeric'
+                'action_id' => 'required|numeric',
+                'counselor_id'=>'nullable|numeric',
+                'admission_id'=>'nullable|numeric',
+                'source_details'=>'nullable|string',
 
             ], $this->messagevalidation()
         );
