@@ -40,7 +40,7 @@
             <div class="row  ">
 
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 "  style="padding: 5px">
-                    <span class="text-info h4">&nbsp; {{$leadEvent->lead->client_name}}</span></div>
+                <span class="text-info h4">&nbsp; {{$leadEvent->lead->client_name}}</span></div>
 
 
 

@@ -32,6 +32,7 @@ class Contact extends Model
         'status',
         'client_name',
         'description',
+        'action',
         'source',
         'employee_id',
         'counselor_id',
@@ -68,6 +69,16 @@ class Contact extends Model
     public function contactEvent()
     {
         return $this->hasMany('App\Models\ContactEvent', 'contact_id', 'id');
+    }
+
+    public function counsulor()
+    {
+        return $this->belongsTo('App\Models\Counselor', 'counselor_id', 'id')->withDefault();
+    }
+
+    public function admission()
+    {
+        return $this->belongsTo('App\Models\Admission', 'admission_id', 'id')->withDefault();
     }
 
 

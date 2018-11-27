@@ -61,6 +61,23 @@ class Counselor extends Model
         return $this->belongsTo('App\Models\Office','office_id','id');
     }
 
+    public function leads()
+    {
+        return $this->hasMany('App\Models\Lead', 'employee_id', 'id');
+    }
+
+    public function applications()
+    {
+        return $this->hasMany('App\Models\Application', 'employee_id', 'id');
+    }
+
+
+
+    public function contacts()
+    {
+        return $this->hasMany('App\Models\Contact', 'employee_id', 'id');
+    }
+
 
 
 

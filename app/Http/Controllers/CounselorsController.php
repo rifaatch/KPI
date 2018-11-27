@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Lead;
 use App\Models\Office;
 use App\Models\Counselor;
+use App\Models\Application;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Contact;
+use Carbon\Carbon;
 use Exception;
 
 class CounselorsController extends Controller
@@ -142,6 +146,114 @@ $offices = Office::pluck('office_name','id')->all();
         }
     }
 
+    public  function  contacts ()
+    {
+
+        $counsulors=Counselor::all();
+        return view('counselors.contacts', compact('counsulors'));
+
+
+    }
+
+    public function showListOfContacts (Request $request)
+    {
+
+        $selectedcounsulor = $request->input('selectedcounsulor');
+
+        $contacts = Contact::where('counselor_id' ,'=' ,$selectedcounsulor)->paginate(25);
+        $successMsg='List of contacts :';
+        return view('contacts.contacts', compact('contacts'))->with('successMsg');
+
+
+
+    }
+
+    public function totalContacts ()
+    {
+
+       $counselors=Counselor::all();
+        return view('counselors.total-contacts', compact('counselors'));
+
+
+
+    }
+
+    public function newContacts ( )
+    {
+        $currentDate = Carbon::now();
+        $selectedDate = $currentDate->toDateString();
+        $counselors=Counselor::all();
+        return view('counselors.newcontacts', compact('counselors' ,'selectedDate'));
+
+    }
+
+    public function showNewContacts( Request $request )
+
+    {
+        $selectedcounsulor = $request->input('selectedcounsulor');
+        $selectedDate1 = $request->input('selecteddate1');
+        $selectedDate2 = $request->input('selecteddate2');
+
+        $contacts = Contact::where('counselor_id' ,'=' ,$selectedcounsulor)
+            ->whereDate('contacts.created_at', '>=', $selectedDate1)
+            ->whereDate('contacts.created_at', '<=', $selectedDate2)->paginate(10);
+
+
+
+        $successMsg='List of new contacts :';
+        return view('contacts.contacts', compact('contacts'))->with('successMsg');
+
+    }
+
+
+
+    public  function  leadByStatus ()
+    {
+        $counselors=Counselor::all();
+        $statusList=['active','nactive','closed','cancelled','creation'];
+        return view('counselors.leads-by-status', compact('counselors' ,'statusList'));
+
+
+    }
+
+    public function showLeadByStatus (Request $request)
+    {
+
+        $selectedStatus = $request->input('selectedStatus');
+        $selectedcounsulor = $request->input('selectedcounsulor');
+
+        $leads = Lead::where('status', '=',  $selectedStatus);
+
+        if ($selectedcounsulor <> 0) $leads=$leads->where('counselor_id' ,'=' ,$selectedcounsulor);
+        $leads=$leads->orderBy('created_at')->paginate(25);
+      //  dd($leads);
+        return view('newleads.leads', compact('leads'));
+
+    }
+
+    public function applicationByStatus ()
+    {
+        $counselors=Counselor::all();
+        $statusList=['active','nactive','closed','cancelled','creation'];
+        return view('counselors.applications-by-status', compact('counselors' ,'statusList'));
+    }
+
+    public  function  showApplicationsByStatus (Request $request)
+    {
+        $selectedStatus = $request->input('selectedStatus');
+
+        $selectedcounsulor = $request->input('selectedcounsulor');
+
+        $applications = Application::where('status', '=',  $selectedStatus);
+
+
+        if ($selectedcounsulor <> 0) $applications=$applications->where('counselor_id' ,'=' ,$selectedcounsulor);
+        $applications=$applications->orderBy('created_at')->paginate(10);
+
+        return view('applications.applications', compact('applications'));
+
+    }
+
     
     /**
      * Get the request's data from the request.
@@ -166,5 +278,7 @@ $offices = Office::pluck('office_name','id')->all();
 
         return $data;
     }
+
+
 
 }

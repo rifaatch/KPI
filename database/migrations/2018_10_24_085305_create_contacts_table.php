@@ -19,6 +19,7 @@ class CreateContactsTable extends Migration {
 			$table->enum('status', array('active','nactive','closed','cancelled','creation'));
 			$table->string('client_name', 100)->nullable();
 			$table->text('description', 65535)->nullable();
+            $table->string('action', 100);
 			$table->string('source', 100)->nullable();
             $table->text('source_details')->nullable();
 

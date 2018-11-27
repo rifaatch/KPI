@@ -18,8 +18,9 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <div class="row" >
-                            <div class="col-12"><h2 class="d-flex justify-content-center">New Contacts between 2 dates </h2></div>
+                        <div class="row">
+                            <div class="col-12"><h2 class="d-flex justify-content-center">New Contacts between 2
+                                    dates </h2></div>
                         </div>
 
                         <div class="row form-group">
@@ -67,9 +68,9 @@
     <script>
         $(document).ready(function () {
             $("#getdata").click(function () {
-                selecteddate1 = $("#slecteddate1").val();
-                selecteddate2 = $("#slecteddate2").val();
-                searchurl = "{{route('contact.byofficebtw_2_dates')}}"
+                var selecteddate1 = $("#slecteddate1").val();
+                var selecteddate2 = $("#slecteddate2").val();
+                var searchurl = "{{route('contact.byofficebtw_2_dates')}}"
                 $.ajax({
                     type: "POST",
                     dataType: "html",

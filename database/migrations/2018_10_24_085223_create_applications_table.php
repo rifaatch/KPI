@@ -20,7 +20,9 @@ class CreateApplicationsTable extends Migration {
 			$table->string('client_name', 100)->nullable();
 			$table->text('description', 65535)->nullable();
 			$table->string('action', 100);
+
 			$table->string('source', 100)->nullable();
+            $table->text('source_details')->nullable();
 			$table->integer('employee_id')->index('employee_id');
 
             $table->integer('counselor_id')->nullable()->index('counselor_id');

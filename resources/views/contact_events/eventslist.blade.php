@@ -22,10 +22,20 @@
             @if(!empty($successMsg))
                 <div class="alert alert-success"><h4> {{ $successMsg }} </h4></div>
             @endif
-            <h6 class="col-lg-6 col-md-6 col-sm-12 col-12"> Contact Zoho id :{{$contact->zoho_id}} </h6>
-            <h6 class="col-lg-6 col-md-6 col-sm-12 col-12"> Created at :{{$contact->created_at}} </h6>
-            <h4 class="col-lg-6 col-md-6 col-sm-12 col-12 text-info"> Client:{{$contact->client_name}} </h4>
-            <h4 class="col-lg-6 col-md-6 col-sm-12 col-12"> Employee:{{$contact->employee->name}} </h4>
+                <h6 class="col-lg-4 col-md-6 col-sm-12 col-12"> Contact Zoho id :{{$contact->zoho_id}} </h6>
+                <h6 class="col-lg-4 col-md-6 col-sm-12 col-12"> Created at :{{$contact->created_at}} </h6>
+                <h6 class="col-lg-4 col-md-6 col-sm-12 col-12"> Duration : {{ duration( $contact->created_at ) }} </h6>
+
+                <h6 class="col-lg-4 col-md-6 col-sm-12 col-12"> Counsulor : {{$contact->counsulor->name}} </h6>
+                <h6 class="col-lg-4 col-md-6 col-sm-12 col-12"> Admission  :{{$contact->admission->name}} </h6>
+                <h6 class="col-lg-4 col-md-6 col-sm-12 col-12"> Employee:{{$contact->employee->name}} </h6>
+
+                <h6 class="col-lg-4 col-md-6 col-sm-12 col-12"> Source  :{{$contact->source}} </h6>
+                <h6 class="col-lg-8 col-md-6 col-sm-12 col-12"> Source details:{{$contact->source_details}} </h6>
+
+                <h5 class="col-lg-12 col-md-12 col-sm-12 col-12 "> Status:{{$contact->status}} </h5>
+                <h4 class="col-lg-12 col-md-12 col-sm-12 col-12 text-info"> Client:{{$contact->client_name}} </h4>
+
 
             <h5 class="col-lg-12 col-sm-12 col-12" style="margin: 10px 0 15px 25px"> {{$contact->description}} </h5>
 

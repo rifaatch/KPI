@@ -18,7 +18,7 @@
             </div>
             <div class="row  ">
                 <span class="col-lg-3 col-sm-12 col-xs-12"> <span class="">Source: &nbsp;</span> {{$application->source}}</span>
-                <span class="col-lg-6 col-sm-12 col-xs-12"> <span class="">Source details: &nbsp;</span> {{$application->source_details}}</span>
+                <span class="col-lg-9 col-sm-12 col-xs-12"> <span class="">Source details: &nbsp;</span> {{$application->source_details}}</span>
             </div>
 
             <div class="row  ">

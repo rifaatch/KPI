@@ -396,9 +396,9 @@ Route::group(
     Route::get('/create','CounselorsController@create')
          ->name('counselors.counselor.create');
 
-    Route::get('/show/{counselor}','CounselorsController@show')
+   /* Route::get('/show/{counselor}','CounselorsController@show')
          ->name('counselors.counselor.show')
-         ->where('id', '[0-9]+');
+         ->where('id', '[0-9]+');*/
 
     Route::get('/{counselor}/edit','CounselorsController@edit')
          ->name('counselors.counselor.edit')
@@ -414,6 +414,34 @@ Route::group(
     Route::delete('/counselor/{counselor}','CounselorsController@destroy')
          ->name('counselors.counselor.destroy')
          ->where('id', '[0-9]+');
+
+    Route::get('/show-contacts/','CounselorsController@contacts')
+        ->name('counselors.counselor.contacts');
+
+    Route::post('/show-list-of-contacts/' ,'CounselorsController@showListOfContacts')
+        ->name('counselors.counselor.contacts.list');
+
+    Route::get('/show-total-contacts/','CounselorsController@totalContacts')
+        ->name('counselors.counselor.contacts.total');
+
+    Route::get('/new-contacts/','CounselorsController@newContacts')
+        ->name('counselors.counselor.new.contacts');
+
+    Route::post('/show-new-contacts/' ,'CounselorsController@showNewContacts')
+        ->name('counselor.show.new.contacts');
+
+    Route::get('leads-by-status/','CounselorsController@leadByStatus')
+        ->name('counselors.leads.status');
+
+    Route::post('show-leads-by-status/','CounselorsController@showLeadByStatus')
+        ->name('counselors.leads.status.show');
+
+    Route::get('applications-by-status/','CounselorsController@applicationByStatus')
+        ->name('counselors.applications.status');
+
+    Route::post('show-applications-by-status/','CounselorsController@showApplicationsByStatus')
+        ->name('counselors.applications.status.show');
+
 
 });
 

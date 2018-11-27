@@ -100,6 +100,37 @@
             </ul>
         </li>
 
+        <li class="active">
+            <a href="#CounsellorsSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Counsellors  Stats </a>
+            <ul class="collapse list-unstyled" id="CounsellorsSubmenu">
+
+
+                <li>
+                    <a href="{{route('counselors.counselor.contacts')}}">List of contacts</a>
+                </li>
+
+                <li>
+                    <a href="{{route('counselors.counselor.contacts.total')}}">Total Contacts</a>
+                </li>
+
+                <li>
+                    <a href="{{route('counselors.counselor.new.contacts')}}">New Contacts</a>
+                </li>
+
+
+                <li>
+                    <a href="{{route('counselors.leads.status')}}">Leads by Status</a>
+                </li>
+
+                <li>
+                    <a href="{{route('counselors.applications.status')}}">Applications by Status </a>
+                </li>
+
+
+
+
+            </ul>
+        </li>
         <li>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">

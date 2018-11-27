@@ -10,15 +10,26 @@
         @foreach( $contacts as $contact)
 
             <div class="row  ">
-                <span class="col-lg-3 col-sm-12 col-xs-12">{{$contact->created_at}}</span>
-                <span class="col-lg-3 col-sm-12 col-xs-12"></span>
-                <span class="col-lg-3 col-sm-12 col-xs-12"> <span class="">Source: &nbsp;</span> {{$contact->source}}</span>
+                <span class="col-lg-3 col-md-6 col-sm-12 col-xs-12">{{$contact->created_at}}</span>
+                <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 " >  <span class="">Duration : &nbsp;</span>    {{duration( $contact->created_at )}}</div>
+                <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 " >  <span class="">Counsulor : &nbsp;</span>    {{$contact->counsulor->name}}</div>
+                <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12"> <span class="">Admission: &nbsp;</span> {{$contact->admission->name}}</div>
+
+
+
             </div>
+        <div class="row" >
+            <span class="col-lg-3  col-md-6 col-sm-12 col-xs-12"> <span class="">Source: &nbsp;</span> {{$contact->source}}</span>
+            <span class="col-lg-9  col-md-6 col-sm-12 col-xs-12"> <span class="">Source details: &nbsp;</span> {{$contact->source_details}}</span>
+
+        </div>
             <div class="row  ">
-              <div class="col-lg-6 col-sm-12 col-xs-12 " >  <span class="">Zoho id : &nbsp;</span>    {{$contact->zoho_id}}</div>
 
-                <div class="col-lg-3 col-sm-12 col-xs-12 " >   <span class="">Status : &nbsp;</span>    {{$contact->status}} </div>
-
+              <div class="col-lg-3  col-md-6 col-sm-12 col-xs-12 " >  <span class="">Zoho id : &nbsp;</span>    {{$contact->zoho_id}}</div>
+                <div class="col-lg-3  col-md-6 col-sm-12 col-xs-12 " >   <span class="">Status : &nbsp;</span>    {{$contact->status}} </div>
+                <div class="col-lg-3  col-md-6 col-sm-12 col-xs-12   ">
+                    <span class="">Action : &nbsp;</span>    {{$contact->action}}
+                </div>
 
                 <div class="col-lg-3 col-sm-12 col-xs-12 " >
                     <a href="{{route('contactEvents.contactEvent.list' , $contact->id)}}" class="btn btn-info"> Contact events</a>
