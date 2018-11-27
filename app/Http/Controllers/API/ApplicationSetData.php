@@ -79,6 +79,8 @@ class ApplicationSetData
                         // todo double check this part
                         $application->updated_at = carbon::now()->toDateTimeString();
                         $application->status = $data['status'];
+                        $application->action = $data['action'];
+
                         $application->save();
 
 

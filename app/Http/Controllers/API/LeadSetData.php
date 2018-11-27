@@ -75,6 +75,7 @@ class LeadSetData extends Controller
                         // todo double check this part
                         $lead->updated_at = carbon::now()->toDateTimeString();
                         $lead->status = $data['status'];
+                        $lead->action = $data['action'];
                         $lead->save();
 
 

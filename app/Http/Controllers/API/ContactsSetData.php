@@ -79,6 +79,7 @@ class ContactsSetData
                         // todo double check this part
                         $contact->updated_at = carbon::now()->toDateTimeString();
                         $contact->status = $data['status'];
+                        $contact->action = $data['action'];
                         $contact->save();
 
 
