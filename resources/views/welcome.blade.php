@@ -21,7 +21,7 @@
         <link href="{{ asset('css/menu.css') }}" rel="stylesheet">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
-        <link rel="icon" type="image/png" href="{{{ asset('images/favicon.png') }}}" />
+        <link rel="icon" type="image/png" href="{{{ asset('images/favicon.ico') }}}" />
     </head>
     <body>
     <div class="wrapper">
