@@ -35,7 +35,7 @@
 
                 <h5 class="col-lg-12 col-md-12 col-sm-12 col-12 "> Status:{{$application->status}} </h5>
                 <h4 class="col-lg-12 col-md-12 col-sm-12 col-12 text-info"> Client:{{$application->client_name}} </h4>
-
+                <h6 class="col-lg-12 col-md-12 col-sm-12 col-12 text-danger"> Duration for last action : {{duration($application->dateOfLastEvent())}} </h6>
 
             <h5 class="col-lg-12 col-sm-12 col-12" style="margin: 10px 0 15px 25px"> {{$application->description}} </h5>
 

@@ -68,7 +68,7 @@ class Application extends Model
      */
     public function applicationEvent()
     {
-        return $this->hasMany('App\Models\ApplicationEvent', 'aplication_id', 'id');
+        return $this->hasMany('App\Models\ApplicationEvent', 'application_id', 'id');
     }
 
     public function counsulor()
@@ -79,6 +79,13 @@ class Application extends Model
     public function admission()
     {
         return $this->belongsTo('App\Models\Admission', 'admission_id', 'id')->withDefault();
+    }
+
+    public function dateOfLastEvent ()
+    {
+       $lastEvent= $this->applicationEvent()->orderBy('id', 'desc')->first();
+        return $lastEvent->created_at;
+
     }
 
 

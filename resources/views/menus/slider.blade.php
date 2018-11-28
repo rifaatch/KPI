@@ -131,6 +131,20 @@
 
             </ul>
         </li>
+
+        <li class="active">
+            <a href="#AdmissionSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Admission Officer Stats </a>
+            <ul class="collapse list-unstyled" id="AdmissionSubmenu">
+
+
+                <li>
+                    <a href="{{route('admissions.application.status')}}">Applications By Status</a>
+                </li>
+
+
+
+            </ul>
+        </li>
         <li>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">

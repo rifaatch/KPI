@@ -36,9 +36,16 @@
             </div>
 
             <div class="row  ">
-                <div class="col-lg-3 col-sm-12 col-xs-12 "  style=" margin: 7px 0 7px 0">
+                <div class="col-lg-6 col-sm-12 col-xs-12 "  style=" margin: 7px 0 7px 0">
                 <span class="text-info h4" style="padding: 0  5px 0 5px">  {{$application->client_name}}</span>
+
                 </div>
+                <div class="col-lg-6 col-sm-12 col-xs-12 "  style=" margin: 7px 0 7px 0">
+                    <span class="text-danger " style="padding: 0  5px 0 5px">Duration for last action : {{duration($application->dateOfLastEvent())}} </span>
+
+                </div>
+
+                <span ></span>
             </div>
 
 

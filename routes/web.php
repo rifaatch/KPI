@@ -19,6 +19,32 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
+Route::get("/LeadsStats", function(){
+    return View::make("menus.leadsstats");
+})->name('LeadsStats');
+
+Route::get("/applicationstats", function(){
+    return View::make("menus.application-stats");
+})->name('applications-stats');
+
+Route::get("/contactstats", function(){
+    return View::make("menus.contacts-stats");
+})->name('contacts-stats');
+
+Route::get("/counsellorsstats", function(){
+    return View::make("menus.counsellors-stats");
+})->name('counsellors-stats');
+
+Route::get("/admissionstats", function(){
+    return View::make("menus.admission-stats");
+})->name('admission-stats');
+
+Route::get("/management-pages", function(){
+    return View::make("menus.management-pages");
+})->name('management-pages');
+
+
 Route::group(
 [
     'prefix' => 'employees',
@@ -474,5 +500,11 @@ Route::group(
     Route::delete('/admissions/{admissions}','AdmissionsController@destroy')
          ->name('admissions.admissions.destroy')
          ->where('id', '[0-9]+');
+
+    Route::get('/application/status','AdmissionsController@applicationByStatus')
+        ->name('admissions.application.status');
+
+    Route::post('/application/get-data/','AdmissionsController@getDataApplication')
+        ->name('admissions.application.status.getdata');
 
 });

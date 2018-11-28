@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\Application;
 use App\Models\Office;
 use App\Models\Admission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Exception;
 
 class AdmissionsController extends Controller
@@ -147,6 +149,35 @@ class AdmissionsController extends Controller
             return back()->withInput()
                          ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request!']);
         }
+    }
+
+    public function applicationByStatus ()
+    {
+
+        $currentDate = Carbon::now();
+        $selectedDate = $currentDate->toDateString();
+        $statusList=['active','nactive','closed','cancelled','creation'];
+        // dd($statusList);
+        $admissions=Admission::all();
+        return view('admissions.applications-by-status', compact('selectedDate' ,'statusList' ,'admissions' ));
+
+    }
+
+    public function getDataApplication (Request $request)
+    {
+
+        $selectedStatus = $request->input('selectedStatus');
+        $selectedAdmission = $request->input('selectedAdmission');
+
+
+        $applications = Application::where('status', '=',  $selectedStatus);
+
+        if ($selectedAdmission <> 0) $applications=$applications->where('admission_id' ,'=' ,$selectedAdmission);
+        $applications=$applications->orderBy('created_at')->paginate(25);
+
+        return view('applications.applications', compact('applications'));
+
+
     }
 
     
